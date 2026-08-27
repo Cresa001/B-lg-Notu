@@ -43,8 +43,6 @@ body:before{
     padding:20px 18px 70px;
 }
 
-/* HEADER */
-
 .header{
     text-align:center;
     padding:20px 10px 22px;
@@ -64,8 +62,6 @@ body:before{
     color:#8996b4;
     font-size:17px;
 }
-
-/* HERO */
 
 .hero{
     text-align:center;
@@ -104,8 +100,6 @@ body:before{
     color:#8794b1;
     font-size:18px;
 }
-
-/* TYPE */
 
 .type-buttons{
     display:grid;
@@ -179,8 +173,6 @@ body:before{
     margin-top:11px;
     font-size:16px;
 }
-
-/* HISTORY */
 
 .history{
     margin-top:32px;
@@ -269,8 +261,6 @@ body:before{
     margin-top:14px;
 }
 
-/* EDITOR */
-
 .editor{
     display:none;
     margin-top:30px;
@@ -355,15 +345,6 @@ textarea{
     line-height:1.55;
 }
 
-/* ÖZEL UYARI */
-
-#detay::placeholder{
-    color:#aeb6c7;
-    opacity:.82;
-}
-
-/* 6284 */
-
 .adli-options{
     display:none;
     margin-top:18px;
@@ -385,13 +366,6 @@ textarea{
     accent-color:#ff174f;
 }
 
-#tedbirAlan{
-    display:none;
-    margin-top:14px;
-}
-
-/* IPC */
-
 .ipc-options{
     display:none;
     margin-top:18px;
@@ -407,8 +381,6 @@ textarea{
     gap:12px;
     margin-top:15px;
 }
-
-/* VOICE */
 
 .voice-box{
     margin-top:20px;
@@ -449,8 +421,6 @@ textarea{
     font-size:13px;
 }
 
-/* BUTTONS */
-
 .action-row{
     display:flex;
     flex-wrap:wrap;
@@ -490,8 +460,6 @@ textarea{
     color:#dce4f5;
 }
 
-/* OUTPUT */
-
 .output{
     display:none;
     margin-top:24px;
@@ -523,8 +491,6 @@ textarea{
     line-height:1.7;
     color:#f4f6fb;
 }
-
-/* MOBİL */
 
 @media(max-width:650px){
 
@@ -559,7 +525,6 @@ textarea{
     .history-head{
         flex-direction:column;
     }
-
 }
 </style>
 </head>
@@ -628,7 +593,7 @@ textarea{
 
 <div class="field full">
 <label>İlçe</label>
-<input id="ilce" value="Yayladağı" readonly>
+<input id="ilce" value="Yayladağı">
 </div>
 
 <div class="field">
@@ -647,7 +612,6 @@ textarea{
 <option>Gözlüce</option>
 <option>Yayıkdamlar</option>
 </select>
-
 </div>
 
 <div class="field">
@@ -665,40 +629,14 @@ textarea{
 <input id="konu" placeholder="Sesli anlatımda boş bırakabilirsiniz">
 </div>
 
-<div class="field">
-<label>Şahıs Adı Soyadı</label>
-<input id="sahis" placeholder="Manuel kullanım için">
-</div>
-
-<div class="field">
-<label>Doğum Yeri</label>
-<input id="dogumYeri" value="Yayladağı">
-</div>
-
-<div class="field">
-<label>Doğum Yılı</label>
-<input id="dogumYili" type="number">
-</div>
-
-<div class="field">
-<label>Cinsiyet</label>
-<select id="cinsiyet">
-<option value="">Seçiniz</option>
-<option>Erkek</option>
-<option>Kadın</option>
-</select>
-</div>
-
 <div class="field full">
 
 <label>
 Olayı Anlat / Sesli Anlatımdan Gelen Metin
 </label>
 
-<textarea
-id="detay"
-placeholder="OLAYI KISACA ANLATIN YUKARIDA İLÇE VE MAHALLE OLAY TASNİFİ SEÇTİĞİNİZ İÇİN ANLATIMDA BU BİLGİLERE YER VERMEYİNİZ."
-></textarea>
+<textarea id="detay"
+placeholder="OLAYI KISACA ANLATIN YUKARIDA İLÇE VE MAHALLE OLAY TASNİFİ SEÇTİĞİNİZ İÇİN ANLATIMDA BU BİLGİLERE YER VERMEYİNİZ."></textarea>
 
 </div>
 
@@ -716,7 +654,7 @@ placeholder="OLAYI KISACA ANLATIN YUKARIDA İLÇE VE MAHALLE OLAY TASNİFİ SEÇ
 
 </div>
 
-<div id="tedbirAlan">
+<div id="tedbirAlan" style="display:none;margin-top:14px">
 
 <div class="field">
 
@@ -770,7 +708,8 @@ placeholder="OLAYI KISACA ANLATIN YUKARIDA İLÇE VE MAHALLE OLAY TASNİFİ SEÇ
 
 <input
 id="ipcMadde"
-placeholder="Örn: 5326 Sayılı Kabahatler Kanunu'nun 32. Maddesi">
+readonly
+placeholder="Ceza türü seçildiğinde otomatik dolar">
 
 </div>
 
@@ -796,7 +735,7 @@ placeholder="0 TL">
 </button>
 
 <div class="voice-status" id="voiceStatus">
-Olayı doğal şekilde anlatabilirsiniz. Sistem metni bilgi notu formatına dönüştürür.
+OLAYI KISACA ANLATIN YUKARIDA İLÇE VE MAHALLE OLAY TASNİFİ SEÇTİĞİNİZ İÇİN ANLATIMDA BU BİLGİLERE YER VERMEYİNİZ.
 </div>
 
 </div>
@@ -838,37 +777,19 @@ TEMİZLE
 
 <script>
 
-/* =========================================================
-   TEMEL DEĞİŞKENLER
-========================================================= */
-
 let currentType="";
 let generatedNote="";
 let recognition=null;
 let isRecording=false;
 let voiceFinalText="";
 
+const today=new Date();
 
-/* =========================================================
-   TARİH / SAAT
-========================================================= */
+document.getElementById("tarih").value=
+today.toISOString().split("T")[0];
 
-function setCurrentDateTime(){
-
-    const now=new Date();
-
-    const year=now.getFullYear();
-    const month=String(now.getMonth()+1).padStart(2,"0");
-    const day=String(now.getDate()).padStart(2,"0");
-
-    document.getElementById("tarih").value=
-        `${year}-${month}-${day}`;
-
-    document.getElementById("saat").value=
-        `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`;
-}
-
-setCurrentDateTime();
+document.getElementById("saat").value=
+today.toTimeString().slice(0,5);
 
 
 /* =========================================================
@@ -932,7 +853,64 @@ document.getElementById("kanun6284")
 
 
 /* =========================================================
-   SESLİ ANLATIM
+   IPC OTOMATİK KANUN
+========================================================= */
+
+document.getElementById("ipcTuru")
+.addEventListener("change",function(){
+
+    const type=this.value;
+
+    const madde=
+        document.getElementById("ipcMadde");
+
+    if(!type){
+
+        madde.value="";
+        return;
+    }
+
+    const maddeler={
+
+        "Emre Aykırı Davranış":
+            "5326 Sayılı Kabahatler Kanunu'nun 32'nci maddesi",
+
+        "İzinsiz Hurdacılık Faaliyeti":
+            "5326 Sayılı Kabahatler Kanunu'nun 32'nci maddesi",
+
+        "Sarhoşluk":
+            "5326 Sayılı Kabahatler Kanunu'nun 35'inci maddesi",
+
+        "Gürültü":
+            "5326 Sayılı Kabahatler Kanunu'nun 36'ncı maddesi",
+
+        "Dilencilik":
+            "5326 Sayılı Kabahatler Kanunu'nun 33'üncü maddesi",
+
+        "Kumar Oynamak":
+            "5326 Sayılı Kabahatler Kanunu'nun 34'üncü maddesi",
+
+        "Kimliği Bildirmeme":
+            "5326 Sayılı Kabahatler Kanunu'nun 40'ıncı maddesi",
+
+        "Çevreyi Kirletme":
+            "5326 Sayılı Kabahatler Kanunu'nun 41'inci maddesi",
+
+        "Ruhsatsız Faaliyet":
+            "5326 Sayılı Kabahatler Kanunu kapsamında",
+
+        "Diğer Kabahat":
+            "5326 Sayılı Kabahatler Kanunu kapsamında"
+    };
+
+    madde.value=
+        maddeler[type] ||
+        "5326 Sayılı Kabahatler Kanunu kapsamında";
+});
+
+
+/* =========================================================
+   SES
 ========================================================= */
 
 function startVoice(){
@@ -992,8 +970,8 @@ function startVoice(){
             i++
         ){
 
-            let text=
-            event.results[i][0].transcript;
+            const text=
+                event.results[i][0].transcript;
 
             if(event.results[i].isFinal){
 
@@ -1006,7 +984,7 @@ function startVoice(){
         }
 
         document.getElementById("detay").value=
-        (voiceFinalText+" "+interim).trim();
+            (voiceFinalText+" "+interim).trim();
     };
 
     recognition.onerror=function(){
@@ -1040,20 +1018,6 @@ function stopVoice(){
 
 
 /* =========================================================
-   METİN TEMİZLEME
-========================================================= */
-
-function cleanText(text){
-
-    return text
-    .replace(/\s+/g," ")
-    .replace(/[“”]/g,'"')
-    .replace(/[’]/g,"'")
-    .trim();
-}
-
-
-/* =========================================================
    MAHALLELER
 ========================================================= */
 
@@ -1070,92 +1034,26 @@ const mahalleler=[
     "Yayıkdamlar"
 ];
 
+function normalizeTurkish(text){
 
-/* =========================================================
-   SESLİ ANLATIMDA HATALI SÖYLENEBİLECEK
-   MAHALLELERİ NORMALLEŞTİR
-========================================================= */
-
-const mahalleAliases={
-
-    "senıba":"Sebenoba",
-    "seniba":"Sebenoba",
-    "sebeboba":"Sebenoba",
-    "sebenoba":"Sebenoba",
-    "sebenaoba":"Sebenoba",
-
-    "karakose":"Karaköse",
-    "karaköse":"Karaköse",
-
-    "bezge":"Bezge",
-
-    "candir":"Çandır",
-    "çandır":"Çandır",
-
-    "caki":"Çakı",
-    "çakı":"Çakı",
-
-    "karacurun":"Karacurun",
-
-    "denizgoren":"Denizgören",
-    "denizgören":"Denizgören",
-
-    "aydinbahce":"Aydınbahçe",
-    "aydınbahçe":"Aydınbahçe",
-
-    "gozluce":"Gözlüce",
-    "gözlüce":"Gözlüce",
-
-    "yayikdamlar":"Yayıkdamlar",
-    "yayıkdamlar":"Yayıkdamlar",
-
-    "bova":"Sebenoba",
-    "bova mahallesi":"Sebenoba",
-
-    "elçisi bova":"Sebenoba",
-    "elçisi bova mahallesi":"Sebenoba"
-};
-
-
-/* =========================================================
-   MAHALLE BUL
-========================================================= */
+    return text
+    .toLocaleLowerCase("tr-TR")
+    .replace(/ı/g,"i");
+}
 
 function findMahalle(text){
 
-    const lower=
-        cleanText(text)
-        .toLocaleLowerCase("tr-TR");
-
-    /*
-      Önce bilinen mahalle adlarını ara.
-    */
+    const lower=normalizeTurkish(text);
 
     for(const m of mahalleler){
 
         if(
             lower.includes(
-                m.toLocaleLowerCase("tr-TR")
+                normalizeTurkish(m)
             )
         ){
+
             return m;
-        }
-    }
-
-    /*
-      Daha sonra sesli anlatımdaki muhtemel
-      hatalı karşılıkları kontrol et.
-    */
-
-    const keys=
-        Object.keys(mahalleAliases)
-        .sort((a,b)=>b.length-a.length);
-
-    for(const key of keys){
-
-        if(lower.includes(key)){
-
-            return mahalleAliases[key];
         }
     }
 
@@ -1164,68 +1062,7 @@ function findMahalle(text){
 
 
 /* =========================================================
-   MAHALLE METNİNİ NORMALLEŞTİR
-========================================================= */
-
-function normalizeMahalleText(text){
-
-    let result=text;
-
-    /*
-      Özel hatalı sesli tanıma örnekleri.
-    */
-
-    const replacements={
-
-        "elçisi Bova":"Sebenoba",
-        "Elçisi Bova":"Sebenoba",
-        "elçisi Bova Mahallesi":"Sebenoba",
-        "Elçisi Bova Mahallesi":"Sebenoba",
-
-        "Senıba":"Sebenoba",
-        "senıba":"Sebenoba",
-        "Seniba":"Sebenoba",
-        "seniba":"Sebenoba",
-
-        "Sebeboba":"Sebenoba",
-        "sebeboba":"Sebenoba",
-
-        "Karakose":"Karaköse",
-        "karakose":"Karaköse",
-
-        "Candir":"Çandır",
-        "candir":"Çandır",
-
-        "Caki":"Çakı",
-        "caki":"Çakı",
-
-        "Denizgoren":"Denizgören",
-        "denizgoren":"Denizgören",
-
-        "Aydinbahce":"Aydınbahçe",
-        "aydinbahce":"Aydınbahçe",
-
-        "Gozluce":"Gözlüce",
-        "gozluce":"Gözlüce",
-
-        "Yayikdamlar":"Yayıkdamlar",
-        "yayikdamlar":"Yayıkdamlar"
-    };
-
-    for(const [wrong,right] of Object.entries(replacements)){
-
-        result=result.replace(
-            new RegExp(wrong,"gi"),
-            right
-        );
-    }
-
-    return result;
-}
-
-
-/* =========================================================
-   TARİH BUL
+   TARİH
 ========================================================= */
 
 function parseDate(text){
@@ -1285,7 +1122,7 @@ function dateToString(d){
 
 
 /* =========================================================
-   SAAT BUL
+   SAAT
 ========================================================= */
 
 function parseTime(text){
@@ -1331,7 +1168,86 @@ function parseTime(text){
 
 
 /* =========================================================
-   ŞEHİRLER
+   İLÇE
+========================================================= */
+
+function findIlce(text){
+
+    const ilceler=[
+        "Yayladağı",
+        "Kırıkhan",
+        "Antakya",
+        "Samandağı",
+        "Reyhanlı",
+        "İskenderun",
+        "Defne",
+        "Arsuz",
+        "Nizip",
+        "Gaziantep",
+        "Hatay",
+        "Adana"
+    ];
+
+    const lower=normalizeTurkish(text);
+
+    for(const ilce of ilceler){
+
+        if(
+            lower.includes(
+                normalizeTurkish(ilce)
+            )
+        ){
+
+            /*
+              Kişinin doğum yeri ile
+              olay ilçesini karıştırmamak için
+              Yayladağı İlçesi ifadesi öncelikli.
+            */
+
+            if(
+                lower.includes(
+                    normalizeTurkish(ilce+" ilçesi")
+                )
+            ){
+
+                return ilce;
+            }
+        }
+    }
+
+    return document.getElementById("ilce").value || "Yayladağı";
+}
+
+
+/* =========================================================
+   İSİM FORMAT
+========================================================= */
+
+function capitalizeName(name){
+
+    return name
+    .toLocaleLowerCase("tr-TR")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(x=>
+        x.charAt(0).toLocaleUpperCase("tr-TR")+
+        x.slice(1)
+    )
+    .join(" ");
+}
+
+function personDisplay(p){
+
+    let isim=
+        capitalizeName(p.ad)+" "+
+        p.soyad.toLocaleUpperCase("tr-TR");
+
+    return `*${isim} (${p.yeri}/${p.yil}/${p.cinsiyet})*`;
+}
+
+
+/* =========================================================
+   KİŞİLERİ YAKALA
 ========================================================= */
 
 const sehirler=[
@@ -1351,183 +1267,679 @@ const sehirler=[
     "Kepir"
 ];
 
-
-/* =========================================================
-   İSİM BİÇİMLENDİRME
-========================================================= */
-
-function capitalizeName(name){
-
-    return name
-    .toLocaleLowerCase("tr-TR")
-    .split(/\s+/)
-    .filter(Boolean)
-    .map(x=>
-        x.charAt(0).toLocaleUpperCase("tr-TR")+
-        x.slice(1)
-    )
-    .join(" ");
-}
-
-
-/*
-   İstenen format:
-
-   *AHMET VELİ (Yayladağı/2000/Erkek)*
-
-   İsim ve parantez içindeki bilgiler birlikte
-   koyu olarak gösterilir.
-*/
-
-function formatPerson(ad,soyad,dogum,cinsiyet){
-
-    let isim=
-        capitalizeName(ad)+" "+
-        soyad.toLocaleUpperCase("tr-TR");
-
-    return `*${isim.trim()} (${dogum.yeri}/${dogum.yil}/${cinsiyet})*`;
-}
-
-
-/* =========================================================
-   KİŞİ YAKALAMA
-========================================================= */
-
 function extractPeople(text){
 
     let people=[];
 
     /*
-      Çoklu şahıs desteği.
-
       Örnek:
-
-      Ahmet Veli Yayladağı 2000 erkek
+      Ahmet Veli Kırıkhan 2005 erkek
       Mehmet Muzaffer Yayladağı 2001 erkek
-      Ali Veli Muğla 1995 erkek
-
-      Hepsi ayrı ayrı yakalanır.
     */
 
-    const regex=
-    /\b([A-Za-zÇĞİÖŞÜçğıöşü]+(?:\s+[A-Za-zÇĞİÖŞÜçğıöşü]+)?)\s+(Yayladağı|Muğla|Antakya|Samandağı|Kırıkhan|Reyhanlı|İskenderun|Defne|Arsuz|Nizip|Gaziantep|Hatay|Adana|Kepir)\s*(?:doğumlu\s*)?(\d{4})\s+(Erkek|Kadın)\b/gi;
+    const cityPattern=
+        sehirler.join("|");
+
+    const regex=new RegExp(
+        "\\b([A-Za-zÇĞİÖŞÜçğıöşü]+)\\s+"+
+        "([A-Za-zÇĞİÖŞÜçğıöşü]+)\\s+"+
+        "("+cityPattern+")\\s*"+
+        "(?:doğumlu\\s*)?"+
+        "(\\d{4})\\s+"+
+        "(Erkek|Kadın)\\b",
+        "gi"
+    );
 
     let match;
 
     while((match=regex.exec(text))!==null){
 
-        const nameParts=
-            match[1].trim().split(/\s+/);
-
-        if(nameParts.length<2){
-            continue;
-        }
-
-        const ad=nameParts[0];
-
-        const soyad=
-            nameParts.slice(1).join(" ");
-
         const person={
-
-            ad:ad,
-
-            soyad:soyad,
-
-            yeri:match[2],
-
-            yil:match[3],
-
+            ad:match[1],
+            soyad:match[2],
+            yeri:match[3],
+            yil:match[4],
             cinsiyet:
-                match[4]
+                match[5]
                 .toLocaleLowerCase("tr-TR")==="erkek"
                 ?"Erkek"
                 :"Kadın"
         };
 
-        people.push(person);
-    }
+        if(
+            !people.some(
+                p=>
+                p.ad===person.ad &&
+                p.soyad===person.soyad &&
+                p.yil===person.yil
+            )
+        ){
 
-    /*
-      Aynı şahıs tekrar yakalanmışsa kaldır.
-    */
-
-    const unique=[];
-
-    const seen=new Set();
-
-    for(const p of people){
-
-        const key=
-            `${p.ad}|${p.soyad}|${p.yil}|${p.cinsiyet}`
-            .toLocaleLowerCase("tr-TR");
-
-        if(!seen.has(key)){
-
-            seen.add(key);
-            unique.push(p);
+            people.push(person);
         }
     }
 
-    return unique;
+    return people;
 }
 
 
 /* =========================================================
-   MANUEL KİŞİ
+   TCKN
 ========================================================= */
 
-function manualPerson(){
+function extractTCKN(text){
 
-    const adsoyad=
-        document.getElementById("sahis")
-        .value.trim();
+    let m=text.match(
+        /(?:T\.?C\.?\s*kimlik\s*numarası|TCKN|TC)\s*[:.]?\s*(\d{11})/i
+    );
 
-    const yil=
-        document.getElementById("dogumYili")
-        .value.trim();
-
-    const yeri=
-        document.getElementById("dogumYeri")
-        .value.trim() ||
-        "Yayladağı";
-
-    const cinsiyet=
-        document.getElementById("cinsiyet")
-        .value;
-
-    if(!adsoyad || !yil || !cinsiyet){
-
-        return "";
+    if(m){
+        return m[1];
     }
 
-    let parts=adsoyad.split(/\s+/);
+    /*
+      "TCKN 12345678901" gibi kullanım
+    */
 
-    let ad=parts.shift();
-
-    let soyad=parts.join(" ");
-
-    return formatPerson(
-        ad,
-        soyad,
-        {
-            yeri:yeri,
-            yil:yil
-        },
-        cinsiyet
+    m=text.match(
+        /\bTCKN\s+(\d{11})\b/i
     );
+
+    return m ? m[1] : "";
 }
 
 
 /* =========================================================
-   SUÇ TASNİFİ
+   METİN TEMİZLE
+========================================================= */
+
+function cleanText(text){
+
+    return text
+    .replace(/\s+/g," ")
+    .replace(/[“”]/g,'"')
+    .trim();
+}
+
+
+/* =========================================================
+   METADATA TEMİZLEME
+========================================================= */
+
+function removeMetadata(text,people){
+
+    let olay=text;
+
+    olay=olay
+        .replace(
+            /\b\d{1,2}[./-]\d{1,2}[./-]\d{4}\b/g,
+            " "
+        )
+        .replace(
+            /\b\d{1,2}\s+(ocak|şubat|mart|nisan|mayıs|haziran|temmuz|ağustos|eylül|ekim|kasım|aralık)\s+\d{4}\b/gi,
+            " "
+        )
+        .replace(
+            /saat\s+\d{1,2}(?:\s*[:.]\s*\d{1,2}|\s+\d{1,2}|\s+(?:çift sıfır|sıfır sıfır|buçuk|buçuklarında))/gi,
+            " "
+        );
+
+    for(const p of people){
+
+        const pattern=new RegExp(
+            "\\b"+
+            p.ad+"\\s+"+
+            p.soyad+"\\s+"+
+            p.yeri+"\\s*"+
+            "(?:doğumlu\\s*)?"+
+            p.yil+"\\s+"+
+            p.cinsiyet+
+            "\\b",
+            "gi"
+        );
+
+        olay=olay.replace(pattern," ");
+    }
+
+    for(const m of mahalleler){
+
+        olay=olay.replace(
+            new RegExp(
+                "\\b"+
+                m+
+                "\\s+Mahallesi\\b",
+                "gi"
+            ),
+            " "
+        );
+    }
+
+    olay=olay
+        .replace(
+            /Yayladağı\s+İlçesi/gi,
+            " "
+        )
+        .replace(
+            /Kırıkhan\s+İlçesi/gi,
+            " "
+        )
+        .replace(
+            /Antakya\s+İlçesi/gi,
+            " "
+        )
+        .replace(
+            /Samandağı\s+İlçesi/gi,
+            " "
+        )
+        .replace(
+            /isimli\s+şahıs/gi,
+            " "
+        )
+        .replace(
+            /isimli\s+şahıslar/gi,
+            " "
+        )
+        .replace(
+            /isimli/gi,
+            " "
+        )
+        .replace(
+            /şahıs(lar)?/gi,
+            " "
+        )
+        .replace(
+            /\bTCKN\s+\d{11}\b/gi,
+            " "
+        )
+        .replace(
+            /\bT\.?C\.?\s*kimlik\s*numarası\s*:?\s*\d{11}\b/gi,
+            " "
+        )
+        .replace(/\s+/g," ")
+        .trim();
+
+    return olay;
+}
+
+
+/* =========================================================
+   DEVRİYE TÜRÜ BUL
+========================================================= */
+
+function findDevriyeTuru(text){
+
+    const t=normalizeTurkish(text);
+
+    if(
+        t.includes("planlı yol emniyet ve kontrol devriyesi") ||
+        t.includes("planli yol emniyet ve kontrol devriyesi")
+    ){
+
+        return "planlı yol emniyet ve kontrol devriyesi";
+    }
+
+    if(
+        t.includes("yol emniyet ve kontrol devriyesi")
+    ){
+
+        return "yol emniyet ve kontrol devriyesi";
+    }
+
+    if(
+        t.includes("planlı devriye") ||
+        t.includes("planli devriye")
+    ){
+
+        return "planlı devriye";
+    }
+
+    if(
+        t.includes("önleyici kolluk devriyesi") ||
+        t.includes("onleyici kolluk devriyesi")
+    ){
+
+        return "önleyici kolluk devriyesi";
+    }
+
+    if(
+        t.includes("önleyici devriye") ||
+        t.includes("onleyici devriye")
+    ){
+
+        return "önleyici devriye";
+    }
+
+    if(
+        t.includes("devriye faaliyeti")
+    ){
+
+        return "devriye faaliyeti";
+    }
+
+    return "devriye faaliyeti";
+}
+
+
+/* =========================================================
+   DEVRİYE METNİNİ TEMİZLE
+========================================================= */
+
+function removeDevriyeExpressions(text){
+
+    return text
+
+    .replace(
+        /planlı\s+yol\s+emniyet\s+ve\s+kontrol\s+devriyesi/gi,
+        " "
+    )
+
+    .replace(
+        /planlı\s+yol\s+emniyet\s+ve\s+kontrol\s+devriyesi\s+faaliyeti/gi,
+        " "
+    )
+
+    .replace(
+        /yol\s+emniyet\s+ve\s+kontrol\s+devriyesi/gi,
+        " "
+    )
+
+    .replace(
+        /planlı\s+devriye\s+faaliyeti/gi,
+        " "
+    )
+
+    .replace(
+        /planlı\s+devriye/gi,
+        " "
+    )
+
+    .replace(
+        /önleyici\s+kolluk\s+devriyesi\s+faaliyeti/gi,
+        " "
+    )
+
+    .replace(
+        /önleyici\s+kolluk\s+devriyesi/gi,
+        " "
+    )
+
+    .replace(
+        /önleyici\s+devriye\s+faaliyeti/gi,
+        " "
+    )
+
+    .replace(
+        /önleyici\s+devriye/gi,
+        " "
+    )
+
+    .replace(
+        /devriye\s+faaliyeti/gi,
+        " "
+    )
+
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+
+/* =========================================================
+   KONU
+========================================================= */
+
+function determineIPCSubject(text){
+
+    const manual=
+        document.getElementById("konu")
+        .value.trim();
+
+    if(manual){
+        return manual;
+    }
+
+    const selected=
+        document.getElementById("ipcTuru").value;
+
+    const t=normalizeTurkish(text);
+
+    if(
+        selected==="İzinsiz Hurdacılık Faaliyeti" ||
+        t.includes("hurdacılık") ||
+        t.includes("hurdacilik") ||
+        t.includes("hurda")
+    ){
+
+        return "Kabahatler Kanunu Kapsamında Emre Aykırı Davranış / Hurdacılık Faaliyeti";
+    }
+
+    if(selected==="Emre Aykırı Davranış"){
+
+        return "Kabahatler Kanunu Kapsamında Emre Aykırı Davranış";
+    }
+
+    if(selected){
+
+        return "Kabahatler Kanunu Kapsamında "+selected;
+    }
+
+    return "Kabahatler Kanunu Kapsamında Emre Aykırı Davranış";
+}
+
+
+/* =========================================================
+   IPC FAALİYETİNİ BUL
+========================================================= */
+
+function determineIPCActivity(text){
+
+    const t=normalizeTurkish(text);
+
+    if(
+        t.includes("hurdacılık") ||
+        t.includes("hurdacilik") ||
+        t.includes("hurda")
+    ){
+
+        return "hurdacılık faaliyeti yürüttüğü";
+    }
+
+    if(
+        t.includes("sarhoş")
+    ){
+
+        return "sarhoş olduğu";
+    }
+
+    if(
+        t.includes("gürültü")
+    ){
+
+        return "gürültü yaptığı";
+    }
+
+    if(
+        t.includes("dilenc")
+    ){
+
+        return "dilencilik yaptığı";
+    }
+
+    if(
+        t.includes("kumar")
+    ){
+
+        return "kumar oynadığı";
+    }
+
+    const selected=
+        document.getElementById("ipcTuru").value;
+
+    if(selected){
+
+        return selected.toLocaleLowerCase("tr-TR")+" yaptığı";
+    }
+
+    return "kabahat niteliğinde faaliyette bulunduğu";
+}
+
+
+/* =========================================================
+   IPC AÇIKLAMA
+========================================================= */
+
+function buildIPC(text){
+
+    text=cleanText(text);
+
+    const ilce=findIlce(text);
+
+    const mahalle=findMahalle(text);
+
+    const d=parseDate(text);
+
+    const date=d
+        ?dateToString(d)
+        :formatDate(
+            document.getElementById("tarih").value
+        );
+
+    const time=
+        parseTime(text) ||
+        document.getElementById("saat")
+        .value.replace(":",".");
+
+    const people=extractPeople(text);
+
+    const tckn=extractTCKN(text);
+
+    const devriye=findDevriyeTuru(text);
+
+    const activity=determineIPCActivity(text);
+
+    const madde=
+        document.getElementById("ipcMadde")
+        .value.trim();
+
+    const miktar=
+        document.getElementById("ipcMiktar")
+        .value.trim();
+
+    /*
+      Olayın kişileri:
+      Kaç kişi olursa olsun tamamı aynı formatta.
+    */
+
+    let personText="";
+
+    if(people.length===1){
+
+        personText=
+            `${personDisplay(people[0])} isimli şahsın`;
+
+    }else if(people.length>1){
+
+        personText=
+            people
+            .map(p=>personDisplay(p))
+            .join(" ve ")+
+            " isimli şahısların";
+
+    }else{
+
+        personText=
+            "ilgili şahsın";
+    }
+
+
+    /*
+      TCKN varsa ilk şahsa eklenir.
+    */
+
+    let tcknText="";
+
+    if(tckn){
+
+        tcknText=
+            `, TCKN : ${tckn}`;
+    }
+
+
+    /*
+      STANDART İPC METNİ
+    */
+
+    let sonuc=
+`Yayladağı İlçesi ${mahalle} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen ${devriye} kapsamında yapılan kontrollerde, ${activity} tespit edilen ${personText}`;
+
+    /*
+      TCKN sadece kişi bilgisinin devamına eklenir.
+    */
+
+    if(tckn && people.length===1){
+
+        sonuc=
+`Yayladağı İlçesi ${mahalle} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen ${devriye} kapsamında yapılan kontrollerde, ${activity} tespit edilen ${personDisplay(people[0])}${tcknText} isimli şahsın`;
+
+    }
+
+    /*
+      Olayın ham metninden tekrar eden
+      kişi / tarih / mahalle / devriye ifadelerini çıkar.
+    */
+
+    let faaliyet=
+        removeMetadata(text,people);
+
+    faaliyet=
+        removeDevriyeExpressions(faaliyet);
+
+    /*
+      Kişi ve devriye ifadeleri çıktıdan tamamen çıkarılır.
+    */
+
+    faaliyet=
+        faaliyet
+        .replace(
+            /yol emniyet ve kontrol/gi,
+            " "
+        )
+        .replace(
+            /planlı/gi,
+            " "
+        )
+        .replace(
+            /önleyici kolluk/gi,
+            " "
+        )
+        .replace(
+            /faaliyeti rica ettiğimiz esnada/gi,
+            " "
+        )
+        .replace(
+            /faaliyeti icra ettiğimiz esnada/gi,
+            " "
+        )
+        .replace(
+            /icra ettiğimiz esnada/gi,
+            " "
+        )
+        .replace(
+            /yaptığı tespit edilmiştir/gi,
+            " "
+        )
+        .replace(
+            /yaptığı tespit edildi/gi,
+            " "
+        )
+        .replace(
+            /tespit edilmiştir/gi,
+            " "
+        )
+        .replace(
+            /tespit edilmiştir\./gi,
+            " "
+        )
+        .replace(
+            /tespit edildi/gi,
+            " "
+        )
+        .replace(/\s+/g," ")
+        .trim();
+
+
+    /*
+      Hurdacılık özel metni.
+      Sesli anlatım devrik olsa bile
+      standart hale getiriyoruz.
+    */
+
+    const t=normalizeTurkish(text);
+
+    if(
+        t.includes("hurdacılık") ||
+        t.includes("hurdacilik") ||
+        t.includes("hurda")
+    ){
+
+        sonuc=
+`Yayladağı İlçesi ${mahalle} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen ${devriye} sırasında ${personText} izinsiz hurdacılık faaliyeti yaptığı tespit edilmiştir.`;
+
+    }else{
+
+        sonuc+=
+            ` ${activity}.`;
+    }
+
+
+    /*
+      Çifte cümle ve gereksiz kelimeleri temizle.
+    */
+
+    sonuc=
+        sonuc
+        .replace(
+            /tespit edilmiştir\s+tespit edilmiştir/gi,
+            "tespit edilmiştir"
+        )
+        .replace(
+            /\.\s*\./g,
+            "."
+        )
+        .replace(
+            /\s+,/g,
+            ","
+        )
+        .replace(
+            /\s{2,}/g,
+            " "
+        )
+        .trim();
+
+
+    /*
+      Kanun maddesi
+    */
+
+    if(madde){
+
+        sonuc+=
+` ${madde} kapsamında işlem yapılmıştır.`;
+    }
+
+
+    /*
+      İPC TUTARI MANUEL
+    */
+
+    if(miktar){
+
+        sonuc+=
+` Şahsa ${miktar} TL idari para cezası uygulanarak idari yaptırım kararı tanzim edilmiştir.`;
+    }
+
+
+    /*
+      Son
+    */
+
+    sonuc=
+        sonuc
+        .replace(
+            /işlem yapılmıştır\.\s+Şahsa/,
+            "işlem yapılmıştır. Şahsa"
+        );
+
+    return sonuc;
+}
+
+
+/* =========================================================
+   ADLİ BÖLÜM
 ========================================================= */
 
 function classifyCrime(text){
 
-    const t=
-        text
-        .toLocaleLowerCase("tr-TR");
+    const t=text.toLocaleLowerCase("tr-TR");
 
     if(
         t.includes("tehdit") &&
@@ -1556,7 +1968,6 @@ function classifyCrime(text){
             t.includes("teşebbüs") ||
             t.includes("teşebbüs etti")
         ){
-
             return "Kasten Yaralama (Teşebbüs)";
         }
 
@@ -1584,7 +1995,6 @@ function classifyCrime(text){
             t.includes("ev") ||
             t.includes("ikamet")
         ){
-
             return "Evden Hırsızlık";
         }
 
@@ -1596,7 +2006,6 @@ function classifyCrime(text){
         t.includes("plaka") &&
         t.includes("ruhsat")
     ){
-
         return "Kayıp Eşya (Plaka ve Ruhsat)";
     }
 
@@ -1604,7 +2013,6 @@ function classifyCrime(text){
         t.includes("kayıp") &&
         t.includes("plaka")
     ){
-
         return "Kayıp Eşya (Plaka)";
     }
 
@@ -1612,7 +2020,6 @@ function classifyCrime(text){
         t.includes("cüzdan") &&
         t.includes("kay")
     ){
-
         return "Kayıp Eşya";
     }
 
@@ -1621,7 +2028,6 @@ function classifyCrime(text){
         t.includes("promil") ||
         t.includes("alkollü")
     ){
-
         return "Trafik Güvenliğini Tehlikeye Sokmak (TCK 179/3)";
     }
 
@@ -1630,7 +2036,6 @@ function classifyCrime(text){
         t.includes("esrar") ||
         t.includes("metamfetamin")
     ){
-
         return "Kullanmak için Uyuşturucu Madde Satın Almak, Kabul Etmek veya Bulundurmak";
     }
 
@@ -1641,7 +2046,6 @@ function classifyCrime(text){
             t.includes("organizatör")
         )
     ){
-
         return "Göçmen Kaçakçılığı/Organizatörlü";
     }
 
@@ -1650,7 +2054,6 @@ function classifyCrime(text){
         t.includes("yasa dışı giriş") ||
         t.includes("düzensiz göçmen")
     ){
-
         return "Yasadışı Giriş";
     }
 
@@ -1658,7 +2061,6 @@ function classifyCrime(text){
         t.includes("hurdacılık") ||
         t.includes("hurda")
     ){
-
         return "Emre Aykırı Davranış (Hurdacılık)";
     }
 
@@ -1667,7 +2069,6 @@ function classifyCrime(text){
         t.includes("yüksekten düşme") ||
         t.includes("kayalıklardan düştü")
     ){
-
         return "Kazaen Yaralanma (Yüksekten düşme)";
     }
 
@@ -1679,7 +2080,6 @@ function classifyCrime(text){
             t.includes("bahçe")
         )
     ){
-
         return "Hakkı Olmayan Yere Tecavüz - Mala Zarar Verme - Tehdit";
     }
 
@@ -1688,7 +2088,7 @@ function classifyCrime(text){
 
 
 /* =========================================================
-   KONU
+   ADLİ KONU
 ========================================================= */
 
 function determineSubject(text){
@@ -1697,8 +2097,7 @@ function determineSubject(text){
         document.getElementById("konu")
         .value.trim();
 
-    let detected=
-        classifyCrime(text);
+    let detected=classifyCrime(text);
 
     if(manual){
         return manual;
@@ -1713,414 +2112,18 @@ function determineSubject(text){
 
 
 /* =========================================================
-   OLAY METNİNDEN TARİH-SAAT-KİŞİ-İLÇE-MAHALLE
-   BİLGİLERİNİ ÇIKAR
-========================================================= */
-
-function removeAdministrativeInformation(text,people){
-
-    let olay=text;
-
-    /*
-      Tarihleri kaldır.
-    */
-
-    olay=olay.replace(
-        /\b\d{1,2}[./-]\d{1,2}[./-]\d{4}\b/g,
-        ""
-    );
-
-    olay=olay.replace(
-        /\b\d{1,2}\s+(ocak|şubat|mart|nisan|mayıs|haziran|temmuz|ağustos|eylül|ekim|kasım|aralık)\s+\d{4}\b/gi,
-        ""
-    );
-
-    /*
-      Saatleri kaldır.
-    */
-
-    olay=olay.replace(
-        /saat\s+\d{1,2}(?:\s*[:.]\s*\d{1,2}|\s+\d{1,2}|\s+(?:çift sıfır|sıfır sıfır|buçuk|buçuklarında))/gi,
-        ""
-    );
-
-    /*
-      Tespit edilen BÜTÜN şahısları metinden çıkar.
-      Böylece ikinci, üçüncü, dördüncü şahıs
-      eski haliyle metinde kalmaz.
-    */
-
-    for(const p of people){
-
-        const escapedAd=
-            escapeRegex(p.ad);
-
-        const escapedSoyad=
-            escapeRegex(p.soyad);
-
-        const escapedYeri=
-            escapeRegex(p.yeri);
-
-        const escapedCinsiyet=
-            escapeRegex(p.cinsiyet);
-
-        const personRegex=
-            new RegExp(
-                "\\b"+
-                escapedAd+
-                "\\s+"+
-                escapedSoyad+
-                "\\s+"+
-                escapedYeri+
-                "\\s*(?:doğumlu\\s*)?"+
-                p.yil+
-                "\\s+"+
-                escapedCinsiyet+
-                "\\b",
-                "gi"
-            );
-
-        olay=olay.replace(personRegex,"");
-    }
-
-    /*
-      İlçe ve mahalle bilgisini olay metninden çıkar.
-      Bilgi notunda bunlar üst kısımda otomatik yazılır.
-    */
-
-    olay=olay.replace(
-        /Yayladağı\s+(?:İlçesi|ilçesi)?/gi,
-        ""
-    );
-
-    olay=olay.replace(
-        /\b(?:İlçesi\s+)?(?:Sebenoba|Karaköse|Bezge|Çandır|Çakı|Karacurun|Denizgören|Aydınbahçe|Gözlüce|Yayıkdamlar)\s+Mahallesi(?:'nde|’nde|nde)?/gi,
-        ""
-    );
-
-    /*
-      Sesli tanımada Bova/Senıba gibi ifadeleri de çıkar.
-    */
-
-    olay=olay.replace(
-        /\b(?:Senıba|Seniba|Sebeboba|Bova)\s+Mahallesi(?:'nde|’nde|nde)?/gi,
-        ""
-    );
-
-    olay=olay.replace(
-        /\b(?:elçisi\s+)?Bova(?:\s+Mahallesi)?(?:'nde|’nde|nde)?/gi,
-        ""
-    );
-
-    /*
-      Şahıs ifadelerini temizle.
-    */
-
-    olay=olay.replace(
-        /\bisimli\s+şahıs(?:lar)?\b/gi,
-        ""
-    );
-
-    olay=olay.replace(
-        /\bşahıs(?:lar)?\b/gi,
-        ""
-    );
-
-    /*
-      Gereksiz anlatım tekrarları.
-    */
-
-    olay=olay.replace(
-        /beyanında bulunmuştur/gi,
-        ""
-    );
-
-    olay=olay.replace(
-        /beyan etmiştir/gi,
-        ""
-    );
-
-    olay=olay.replace(
-        /ifade etmiştir/gi,
-        ""
-    );
-
-    /*
-      Fazla "olup" kullanımlarını sadeleştir.
-    */
-
-    olay=olay.replace(
-        /\bolup\b/gi,
-        " "
-    );
-
-    olay=olay
-        .replace(/\s+/g," ")
-        .trim();
-
-    return olay;
-}
-
-
-/* =========================================================
-   REGEX ESCAPE
-========================================================= */
-
-function escapeRegex(text){
-
-    return text.replace(
-        /[.*+?^${}()|[\]\\]/g,
-        "\\$&"
-    );
-}
-
-
-/* =========================================================
-   KONUŞMA DİLİNİ RESMİLEŞTİR
-========================================================= */
-
-function formalizeEventText(text){
-
-    let t=cleanText(text);
-
-    /*
-      Sesli anlatımdan gelen yaygın hataları
-      resmi ifadeye dönüştür.
-    */
-
-    t=t.replace(
-        /\bbirbirinden\s+şikayetçi\b/gi,
-        "birbirlerinden şikâyetçi"
-    );
-
-    t=t.replace(
-        /\bbirbirlerinden\s+şikayetçi\b/gi,
-        "birbirlerinden şikâyetçi"
-    );
-
-    t=t.replace(
-        /\bşikayetçi\b/gi,
-        "şikâyetçi"
-    );
-
-    t=t.replace(
-        /\bdavacı\b/gi,
-        "davacı"
-    );
-
-    t=t.replace(
-        /\btartışmış\b/gi,
-        "tartıştıkları"
-    );
-
-    /*
-      "darp ettiği tespit edilmiş"
-      gibi konuşma kalıplarını koruyup
-      cümle yapısını temizle.
-    */
-
-    t=t.replace(
-        /\btespit edilmiş olup\b/gi,
-        "tespit edilmiş"
-    );
-
-    t=t.replace(
-        /\btespit edildi\b/gi,
-        "tespit edilmiştir"
-    );
-
-    t=t.replace(
-        /\bolmuşlardır\b/gi,
-        "olmuşlardır"
-    );
-
-    t=t.replace(
-        /\s+/g,
-        " "
-    );
-
-    return t.trim();
-}
-
-
-/* =========================================================
-   KİŞİLERİ CÜMLE İÇİNDE KULLAN
-========================================================= */
-
-function personsForEvent(people){
-
-    if(!people.length){
-
-        const manual=manualPerson();
-
-        return manual
-            ?`${manual} isimli şahıs`
-            :"ilgili şahıs";
-    }
-
-    if(people.length===1){
-
-        return `${personDisplay(people[0])} isimli şahıs`;
-    }
-
-    if(people.length===2){
-
-        return `${personDisplay(people[0])} ve ${personDisplay(people[1])} isimli şahıslar`;
-    }
-
-    return people
-        .map(p=>`${personDisplay(p)}`)
-        .join(", ")
-        .replace(/, ([^,]*)$/," ve $1")+" isimli şahıslar";
-}
-
-
-/* =========================================================
-   KİŞİ GÖSTERİMİ
-========================================================= */
-
-function personDisplay(p){
-
-    let isim=
-        capitalizeName(p.ad)+" "+
-        p.soyad.toLocaleUpperCase("tr-TR");
-
-    return `*${isim} (${p.yeri}/${p.yil}/${p.cinsiyet})*`;
-}
-
-
-/* =========================================================
-   TARTIŞMA + DARP + ŞİKAYET
-========================================================= */
-
-function buildSpecialConflict(text,people,mahalle,date,time){
-
-    const t=
-        text.toLocaleLowerCase("tr-TR");
-
-    const hasConflict=
-        t.includes("tartış") ||
-        t.includes("tartis");
-
-    const hasComplaint=
-        t.includes("şikayetçi") ||
-        t.includes("şikayet") ||
-        t.includes("davacı");
-
-    const hasAssault=
-        t.includes("darp") ||
-        t.includes("dövdü") ||
-        t.includes("dövmüş") ||
-        t.includes("yaraladı");
-
-    if(
-        hasConflict &&
-        hasComplaint &&
-        people.length>=2 &&
-        hasAssault
-    ){
-
-        /*
-          İlk iki kişi mağdur/fail ilişkisini
-          konuşma metnine göre mümkün olduğunca
-          korur.
-        */
-
-        let olay=
-            removeAdministrativeInformation(
-                normalizeMahalleText(text),
-                people
-            );
-
-        /*
-          Metinden geriye kalan ana olay ifadesini
-          kullanmak yerine daha düzenli resmi cümle
-          oluştur.
-        */
-
-        let p1=personDisplay(people[0]);
-        let p2=personDisplay(people[1]);
-
-        let fail=p1;
-        let victim=p2;
-
-        /*
-          "Ahmet Veli'nin Mehmet Muzaffer'i darp ettiği"
-          kalıbı varsa fail/victim sırasını koru.
-        */
-
-        const low=text.toLocaleLowerCase("tr-TR");
-
-        const firstName=
-            people[0].ad.toLocaleLowerCase("tr-TR");
-
-        const secondName=
-            people[1].ad.toLocaleLowerCase("tr-TR");
-
-        const firstIndex=
-            low.indexOf(firstName);
-
-        const secondIndex=
-            low.indexOf(secondName);
-
-        const darpIndex=
-            Math.max(
-                low.indexOf("darp"),
-                low.indexOf("dövdü"),
-                low.indexOf("dövmüş")
-            );
-
-        if(
-            darpIndex!==-1 &&
-            firstIndex!==-1 &&
-            secondIndex!==-1
-        ){
-
-            const before=
-                low.lastIndexOf(
-                    firstName,
-                    darpIndex
-                );
-
-            const after=
-                low.indexOf(
-                    secondName,
-                    darpIndex
-                );
-
-            if(before!==-1 && after!==-1){
-
-                fail=p1;
-                victim=p2;
-            }
-        }
-
-        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında, ${p1} isimli şahıs ile ${p2} isimli şahıs arasında tartışma yaşandığı, akabinde ${fail} isimli şahsın ${victim} isimli şahsı darp ettiği ve şahısların birbirlerinden şikâyetçi ve davacı oldukları anlaşılmıştır. Adli tahkikata başlanmıştır.`;
-    }
-
-    return "";
-}
-
-
-/* =========================================================
-   AÇIKLAMA OLUŞTUR
+   ADLİ AÇIKLAMA
 ========================================================= */
 
 function buildExplanation(text){
 
-    text=
-        normalizeMahalleText(
-            cleanText(text)
-        );
+    text=cleanText(text);
 
-    const mahalle=
-        findMahalle(text) ||
-        "Seçilen";
+    const mahalle=findMahalle(text);
 
     const d=parseDate(text);
 
-    const date=
-        d
+    const date=d
         ?dateToString(d)
         :formatDate(
             document.getElementById("tarih").value
@@ -2128,51 +2131,39 @@ function buildExplanation(text){
 
     const time=
         parseTime(text) ||
-        document.getElementById("saat")
-        .value
-        .replace(":", ".");
+        document.getElementById("saat").value
+        .replace(":",".");
 
-    const people=
-        extractPeople(text);
+    const people=extractPeople(text);
+
+    let olay=removeMetadata(text,people);
+
+    const t=text.toLocaleLowerCase("tr-TR");
 
     /*
-      Önce özel olayları kontrol et.
+      Tartışma + şikayet
     */
 
-    const special=
-        buildSpecialConflict(
-            text,
-            people,
-            mahalle,
-            date,
-            time
-        );
+    if(
+        (t.includes("tartış") ||
+         t.includes("tartışmış")) &&
+        (
+            t.includes("şikayetçi") ||
+            t.includes("davacı")
+        ) &&
+        people.length>=2
+    ){
 
-    if(special){
+        let p1=personDisplay(people[0]);
+        let p2=personDisplay(people[1]);
 
-        return special;
+        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında, ${p1} isimli şahıs ile ${p2} isimli şahıs arasında tartışma yaşandığı, şahısların birbirlerinden şikâyetçi ve davacı oldukları anlaşılmıştır. Adli tahkikata başlanmıştır.`;
     }
 
+
     /*
-      Kişi, ilçe, mahalle, tarih ve saati
-      olay anlatımından çıkar.
+      Kayıp cüzdan
     */
-
-    let olay=
-        removeAdministrativeInformation(
-            text,
-            people
-        );
-
-    olay=formalizeEventText(olay);
-
-    const t=
-        text.toLocaleLowerCase("tr-TR");
-
-
-    /* -----------------------------------------------------
-       KAYIP CÜZDAN
-    ----------------------------------------------------- */
 
     if(
         t.includes("cüzdan") &&
@@ -2185,15 +2176,15 @@ function buildExplanation(text){
         let person=
             people.length
             ?personDisplay(people[0])
-            :manualPerson();
+            :"ilgili şahıs";
 
-        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person || "ilgili şahıs"} isimli şahıs cüzdanını kaybettiğini beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
+        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person} isimli şahıs cüzdanını kaybettiğini beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
     }
 
 
-    /* -----------------------------------------------------
-       PLAKA
-    ----------------------------------------------------- */
+    /*
+      Plaka
+    */
 
     if(
         t.includes("plaka") &&
@@ -2206,27 +2197,26 @@ function buildExplanation(text){
         let person=
             people.length
             ?personDisplay(people[0])
-            :manualPerson();
+            :"ilgili şahıs";
 
-        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person || "ilgili şahıs"} isimli şahıs motosikletine ait plakasının kaybolduğunu beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
+        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person} isimli şahıs motosikletine ait plakasının kaybolduğunu beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
     }
 
 
-    /* -----------------------------------------------------
-       TAKSİRLE YARALANMA
-    ----------------------------------------------------- */
+    /*
+      Taksirle yaralanma
+    */
 
     if(
         t.includes("gidon") ||
         t.includes("direksiyon") ||
-        t.includes("motosikletten düştü") ||
-        t.includes("motosikletten düş")
+        t.includes("motosikletten düştü")
     ){
 
         let person=
             people.length
             ?personDisplay(people[0])
-            :manualPerson();
+            :"ilgili şahıs";
 
         let plate=
             text.match(
@@ -2234,80 +2224,61 @@ function buildExplanation(text){
             );
 
         let arac=
-            plate
-            ?plate[0]
-            :"";
+            plate ? plate[0] : "";
 
-        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person || "ilgili şahsın"}${arac ? ` sevk ve idaresindeki ${arac} plakalı motosiklet ile` : " motosiklet ile"} seyir halinde iken gidon hâkimiyetini kaybederek motosikletten düştüğü anlaşılmıştır. Meydana gelen kaza neticesinde yaralanan şahıs ambulans ile hastaneye sevk edilmiş olup, hayati tehlikesinin bulunmadığı anlaşılmıştır. Adli tahkikata başlanmıştır.`;
+        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person}${arac ? ` sevk ve idaresindeki ${arac} plakalı motosiklet ile` : " motosiklet ile"} seyir halinde iken gidon hâkimiyetini kaybederek motosikletten düştüğü anlaşılmıştır. Meydana gelen kaza neticesinde yaralanan şahıs ambulans ile hastaneye sevk edilmiş olup, hayati tehlikesinin bulunmadığı anlaşılmıştır. Adli tahkikata başlanmıştır.`;
     }
 
-
-    /* -----------------------------------------------------
-       YÜKSEKTEN DÜŞME
-    ----------------------------------------------------- */
-
-    if(
-        t.includes("yüksekten düştü") ||
-        t.includes("yüksekten düşme") ||
-        t.includes("kayalıklardan düştü")
-    ){
-
-        let person=
-            people.length
-            ?personDisplay(people[0])
-            :manualPerson();
-
-        return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında ${person || "ilgili şahıs"} isimli şahsın yüksekten/kayalıklardan dengesini kaybederek düşmesi sonucu yaralandığı, hayati tehlikesinin bulunmadığı anlaşılmıştır. Adli tahkikata başlanılmıştır.`;
-    }
-
-
-    /* -----------------------------------------------------
-       GENEL ADLİ OLAY
-    ----------------------------------------------------- */
-
-    const subject=
-        determineSubject(text);
 
     /*
-      Birden fazla şahıs varsa hepsi formatlanır.
+      Genel adli olay
     */
+
+    let subject=determineSubject(text);
 
     let persons="";
 
-    if(people.length===1){
-
-        persons=
-            `${personDisplay(people[0])} isimli şahıs`;
-
-    }else if(people.length>=2){
+    if(people.length){
 
         persons=
             people
-            .map(p=>`${personDisplay(p)}`)
+            .map(p=>personDisplay(p)+" isimli şahıs")
             .join(" ve ");
 
-        persons+=" isimli şahıslar";
-
-    }else{
-
-        const mp=manualPerson();
-
-        if(mp){
-
-            persons=
-                mp+" isimli şahıs";
-
-        }else{
-
-            persons=
-                "ilgili şahıs";
-        }
     }
 
-
-    /*
-      Olay metni boşaldıysa standart ifade.
-    */
+    olay=
+        olay
+        .replace(
+            /^ve\s+/i,
+            ""
+        )
+        .replace(
+            /^ile\s+/i,
+            ""
+        )
+        .replace(
+            /^isimli\s+/i,
+            ""
+        )
+        .replace(
+            /beyanında bulunmuştur/gi,
+            ""
+        )
+        .replace(
+            /beyan etmiştir/gi,
+            ""
+        )
+        .replace(
+            /ifade etmiştir/gi,
+            ""
+        )
+        .replace(
+            /olup/gi,
+            " "
+        )
+        .replace(/\s+/g," ")
+        .trim();
 
     if(!olay){
 
@@ -2315,44 +2286,16 @@ function buildExplanation(text){
             "meydana gelen olay ile ilgili müracaatta bulunmuştur";
     }
 
-
-    /*
-      Başlangıçtaki bağlaçları temizle.
-    */
-
-    olay=olay
-        .replace(
-            /^(ve|ile)\s+/i,
-            ""
-        )
-        .trim();
-
-
-    /*
-      Özel olarak şikâyet/davacı cümlesini
-      daha resmi yap.
-    */
-
-    olay=olay.replace(
-        /şikâyetçi\s+ve\s+davacı\s+olmuşlardır/gi,
-        "şikâyetçi ve davacı olmuşlardır"
-    );
-
-
-    if(
-        !/[.!?]$/.test(olay)
-    ){
-
+    if(!/[.!?]$/.test(olay)){
         olay+=".";
     }
 
-
-    return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında, ${persons} ${olay} Adli tahkikata başlanmıştır.`;
+    return `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında, ${persons || "ilgili şahıs"} ${olay} Adli tahkikata başlanmıştır.`;
 }
 
 
 /* =========================================================
-   6284 EKİ
+   6284
 ========================================================= */
 
 function add6284(){
@@ -2361,122 +2304,23 @@ function add6284(){
         currentType!=="adli" ||
         !document.getElementById("kanun6284").checked
     ){
-
         return "";
     }
 
     const tedbir=
         document.getElementById("tedbir").value;
 
-    if(tedbir==="Hakları anlatıldı"){
+    if(tedbir==="Tedbir kararı istemedi"){
 
-        return " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmıştır.";
+        return " Şahıslara 6284 Sayılı Kanun kapsamında gerekli bilgilendirme yapılmış olup tedbir kararı istemediklerini beyan etmişlerdir.";
     }
 
     if(tedbir==="Tedbir kararı istedi"){
 
-        return " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış olup tedbir kararı istediğini beyan etmiştir.";
+        return " Şahıslara 6284 Sayılı Kanun kapsamında gerekli bilgilendirme yapılmış olup tedbir kararı talep ettiklerini beyan etmişlerdir.";
     }
 
-    if(tedbir==="Tedbir kararı istemedi"){
-
-        return " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış olup tedbir kararı istemediğini beyan etmiştir.";
-    }
-
-    if(tedbir==="Uzaklaştırma talep etti"){
-
-        return " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış olup uzaklaştırma talep ettiğini beyan etmiştir.";
-    }
-
-    if(tedbir==="30 gün uzaklaştırma talep etti"){
-
-        return " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış olup 30 gün uzaklaştırma talep ettiğini beyan etmiştir.";
-    }
-
-    return "";
-}
-
-
-/* =========================================================
-   IPC
-========================================================= */
-
-function buildIPC(text){
-
-    const mahalle=
-        findMahalle(text);
-
-    const d=
-        parseDate(text);
-
-    const date=
-        d
-        ?dateToString(d)
-        :formatDate(
-            document.getElementById("tarih").value
-        );
-
-    const time=
-        parseTime(text) ||
-        document.getElementById("saat")
-        .value
-        .replace(":",".");
-
-    const people=
-        extractPeople(text);
-
-    let person=
-        people.length
-        ?personDisplay(people[0])
-        :manualPerson();
-
-    const ipcTuru=
-        document.getElementById("ipcTuru")
-        .value;
-
-    const madde=
-        document.getElementById("ipcMadde")
-        .value.trim();
-
-    const miktar=
-        document.getElementById("ipcMiktar")
-        .value.trim();
-
-    let faaliyet=
-        removeAdministrativeInformation(
-            normalizeMahalleText(text),
-            people
-        );
-
-    faaliyet=formalizeEventText(faaliyet);
-
-    if(!faaliyet){
-
-        faaliyet=
-            ipcTuru
-            ?`${ipcTuru} yaptığı`
-            :"kabahat niteliğinde faaliyette bulunduğu";
-    }
-
-    let sonuc=
-        `Yayladağı İlçesi ${mahalle} Mahallesi'nde ${date} günü saat ${time} sıralarında icra edilen faaliyet kapsamında yapılan kontrollerde ${person || "ilgili şahsın"} ${faaliyet} tespit edilmiştir.`;
-
-    if(madde){
-
-        sonuc+=
-            ` ${madde} kapsamında işlem yapılmıştır.`;
-    }
-
-    if(miktar){
-
-        sonuc+=
-            ` Şahsa ${miktar} TL idari para cezası uygulanarak idari yaptırım kararı tanzim edilmiştir.`;
-    }
-
-    sonuc+=
-        " Tahkikata başlanılmıştır.";
-
-    return sonuc;
+    return ` Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış, ${tedbir.toLocaleLowerCase("tr-TR")} hususu belirtilmiştir.`;
 }
 
 
@@ -2486,7 +2330,7 @@ function buildIPC(text){
 
 function generateNote(){
 
-    let text=
+    const text=
         document.getElementById("detay")
         .value.trim();
 
@@ -2499,20 +2343,7 @@ function generateNote(){
         return;
     }
 
-    /*
-      Sesli anlatım hatalarını önce düzelt.
-    */
-
-    text=
-        normalizeMahalleText(text);
-
-
-    /*
-      Mahalle otomatik tespit.
-    */
-
-    const mahalle=
-        findMahalle(text);
+    const mahalle=findMahalle(text);
 
     if(mahalle){
 
@@ -2520,102 +2351,63 @@ function generateNote(){
         .value=mahalle;
     }
 
+    const ilce=findIlce(text);
 
-    /*
-      Tarih otomatik tespit.
-    */
+    if(ilce){
 
-    const d=
-        parseDate(text);
+        document.getElementById("ilce")
+        .value=ilce;
+    }
+
+    const d=parseDate(text);
 
     if(d){
 
-        document.getElementById("tarih")
-        .value=
+        document.getElementById("tarih").value=
             `${d.year}-${d.month}-${d.day}`;
     }
 
-
-    /*
-      Saat otomatik tespit.
-    */
-
-    const parsedTime=
-        parseTime(text);
+    const parsedTime=parseTime(text);
 
     if(parsedTime){
 
-        document.getElementById("saat")
-        .value=
+        document.getElementById("saat").value=
             parsedTime.replace(".","");
     }
 
-
-    /* -----------------------------------------------------
-       KONU
-    ----------------------------------------------------- */
 
     let konu;
 
     if(currentType==="ipc"){
 
         konu=
-            document.getElementById("konu")
-            .value.trim() ||
-            classifyCrime(text) ||
-            document.getElementById("ipcTuru").value ||
-            "Emre Aykırı Davranış";
+            determineIPCSubject(text);
 
     }else{
 
         konu=
             determineSubject(text);
-    }
-
-
-    /*
-      6284 konu eki.
-    */
-
-    if(
-        currentType==="adli" &&
-        document.getElementById("kanun6284").checked
-    ){
 
         if(
+            document.getElementById("kanun6284").checked &&
             !konu.includes("6284")
         ){
 
-            konu+=
-                " (6284 Sayılı Kanun Kapsamında)";
+            konu+=" (6284 Sayılı Kanun Kapsamında)";
         }
     }
 
-
-    /* -----------------------------------------------------
-       AÇIKLAMA
-    ----------------------------------------------------- */
 
     let aciklama=
         currentType==="ipc"
         ?buildIPC(text)
         :buildExplanation(text);
 
-
-    /*
-      6284.
-    */
-
     if(currentType==="adli"){
 
-        aciklama+=
-            add6284();
+        aciklama+=add6284();
     }
 
-
-    /*
-      Son format.
-    */
 
     generatedNote=
 `*BİLGİ NOTU*
@@ -2660,8 +2452,6 @@ function formatDate(value){
 
     const p=value.split("-");
 
-    if(p.length!==3)return "";
-
     return `${p[2]}.${p[1]}.${p[0]}`;
 }
 
@@ -2684,8 +2474,7 @@ async function copyNote(){
 
     }catch(e){
 
-        const area=
-            document.createElement("textarea");
+        const area=document.createElement("textarea");
 
         area.value=generatedNote;
 
@@ -2710,17 +2499,13 @@ function saveNote(){
 
     if(!generatedNote){
 
-        alert(
-            "Önce bilgi notunu oluşturun."
-        );
-
+        alert("Önce bilgi notunu oluşturun.");
         return;
     }
 
     const notes=
         JSON.parse(
-            localStorage.getItem("bilgiNotlari") ||
-            "[]"
+            localStorage.getItem("bilgiNotlari") || "[]"
         );
 
     notes.unshift({
@@ -2730,16 +2515,18 @@ function saveNote(){
         type:currentType,
 
         konu:
+            currentType==="ipc"
+            ?determineIPCSubject(
+                document.getElementById("detay").value
+             )
+            :
             document.getElementById("konu")
             .value.trim() ||
             classifyCrime(
-                document.getElementById("detay")
-                .value
+                document.getElementById("detay").value
             ),
 
-        date:
-            new Date()
-            .toLocaleString("tr-TR"),
+        date:new Date().toLocaleString("tr-TR"),
 
         text:generatedNote
     });
@@ -2751,9 +2538,7 @@ function saveNote(){
 
     loadHistory();
 
-    alert(
-        "Bilgi notu kaydedildi."
-    );
+    alert("Bilgi notu kaydedildi.");
 }
 
 
@@ -2765,8 +2550,7 @@ function loadHistory(){
 
     const notes=
         JSON.parse(
-            localStorage.getItem("bilgiNotlari") ||
-            "[]"
+            localStorage.getItem("bilgiNotlari") || "[]"
         );
 
     document.getElementById("historyCount")
@@ -2806,11 +2590,9 @@ function loadHistory(){
         <div class="history-head">
 
             <strong>
-                ${
-                    note.type==="ipc"
+                ${note.type==="ipc"
                     ?"🟢 İPC"
-                    :"🔴 ADLİ OLAY"
-                }
+                    :"🔴 ADLİ OLAY"}
                 — ${escapeHtml(note.konu || "Bilgi Notu")}
             </strong>
 
@@ -2868,15 +2650,14 @@ function escapeHtml(text){
 
 
 /* =========================================================
-   GEÇMİŞ KOPYALA
+   GEÇMİŞ KOPYA
 ========================================================= */
 
-async function copyHistory(id){
+function copyHistory(id){
 
     const notes=
         JSON.parse(
-            localStorage.getItem("bilgiNotlari") ||
-            "[]"
+            localStorage.getItem("bilgiNotlari") || "[]"
         );
 
     const note=
@@ -2884,31 +2665,9 @@ async function copyHistory(id){
 
     if(!note)return;
 
-    try{
+    navigator.clipboard.writeText(note.text);
 
-        await navigator.clipboard.writeText(
-            note.text
-        );
-
-    }catch(e){
-
-        const area=
-            document.createElement("textarea");
-
-        area.value=note.text;
-
-        document.body.appendChild(area);
-
-        area.select();
-
-        document.execCommand("copy");
-
-        area.remove();
-    }
-
-    alert(
-        "Bilgi notu kopyalandı."
-    );
+    alert("Bilgi notu kopyalandı.");
 }
 
 
@@ -2920,8 +2679,7 @@ function openHistory(id){
 
     const notes=
         JSON.parse(
-            localStorage.getItem("bilgiNotlari") ||
-            "[]"
+            localStorage.getItem("bilgiNotlari") || "[]"
         );
 
     const note=
@@ -2934,28 +2692,28 @@ function openHistory(id){
     generatedNote=note.text;
 
     document.getElementById("editor")
-        .classList.add("active");
-
-    document.getElementById("editorTitle")
-        .innerHTML=
-        note.type==="ipc"
-        ?"🟢 İPC BİLGİ NOTU"
-        :"🔴 ADLİ OLAY BİLGİ NOTU";
+    .classList.add("active");
 
     document.getElementById("ipcOptions")
-        .style.display=
+    .style.display=
         note.type==="ipc"
         ?"block"
         :"none";
 
     document.getElementById("adliOptions")
-        .style.display=
+    .style.display=
         note.type==="adli"
         ?"block"
         :"none";
 
+    document.getElementById("editorTitle")
+    .innerHTML=
+        note.type==="ipc"
+        ?"🟢 İPC BİLGİ NOTU"
+        :"🔴 ADLİ OLAY BİLGİ NOTU";
+
     document.getElementById("output")
-        .className=
+    .className=
         "output active "+
         (
             note.type==="ipc"
@@ -2964,12 +2722,12 @@ function openHistory(id){
         );
 
     document.getElementById("result")
-        .textContent=note.text;
+    .textContent=note.text;
 
     document.getElementById("output")
-        .scrollIntoView({
-            behavior:"smooth"
-        });
+    .scrollIntoView({
+        behavior:"smooth"
+    });
 }
 
 
@@ -2984,20 +2742,16 @@ function deleteHistory(id){
             "Bu bilgi notunu geçmişten silmek istediğinize emin misiniz?"
         )
     ){
-
         return;
     }
 
     let notes=
         JSON.parse(
-            localStorage.getItem("bilgiNotlari") ||
-            "[]"
+            localStorage.getItem("bilgiNotlari") || "[]"
         );
 
     notes=
-        notes.filter(
-            x=>x.id!==id
-        );
+        notes.filter(x=>x.id!==id);
 
     localStorage.setItem(
         "bilgiNotlari",
@@ -3014,49 +2768,30 @@ function deleteHistory(id){
 
 function clearForm(){
 
-    document.getElementById("mahalle")
-        .value="";
+    document.getElementById("mahalle").value="";
 
-    document.getElementById("konu")
-        .value="";
+    document.getElementById("ilce").value="Yayladağı";
 
-    document.getElementById("sahis")
-        .value="";
+    document.getElementById("konu").value="";
 
-    document.getElementById("dogumYeri")
-        .value="Yayladağı";
+    document.getElementById("detay").value="";
 
-    document.getElementById("dogumYili")
-        .value="";
+    document.getElementById("ipcTuru").value="";
 
-    document.getElementById("cinsiyet")
-        .value="";
+    document.getElementById("ipcMadde").value="";
 
-    document.getElementById("detay")
-        .value="";
+    document.getElementById("ipcMiktar").value="";
 
-    document.getElementById("ipcTuru")
-        .value="";
-
-    document.getElementById("ipcMadde")
-        .value="";
-
-    document.getElementById("ipcMiktar")
-        .value="";
-
-    document.getElementById("kanun6284")
-        .checked=false;
+    document.getElementById("kanun6284").checked=false;
 
     document.getElementById("tedbirAlan")
-        .style.display="none";
+    .style.display="none";
 
     document.getElementById("output")
-        .className="output";
+    .className="output";
 
     generatedNote="";
     voiceFinalText="";
-
-    setCurrentDateTime();
 }
 
 
@@ -3069,4 +2804,4 @@ loadHistory();
 </script>
 
 </body>
-</html> 
+</html>
