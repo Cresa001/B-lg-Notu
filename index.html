@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#080b14">
 <title>Bilgi Notu Oluşturucu</title>
 
 <style>
@@ -13,183 +13,487 @@
     padding:0;
 }
 
+:root{
+    --bg:#070a12;
+    --panel:#101522;
+    --panel2:#151b2c;
+    --border:#29334b;
+    --text:#f4f7ff;
+    --muted:#8994ad;
+    --green:#00ff88;
+    --red:#ff1744;
+    --blue:#2787ff;
+}
+
 body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:#0b1020;
-    color:#fff;
+    background:
+        radial-gradient(circle at 20% 10%,rgba(0,255,136,.07),transparent 25%),
+        radial-gradient(circle at 80% 10%,rgba(255,23,68,.07),transparent 25%),
+        var(--bg);
+    color:var(--text);
     min-height:100vh;
 }
 
+button,
+select,
+textarea,
+input{
+    font-family:inherit;
+}
+
 .header{
-    padding:22px 18px;
-    background:linear-gradient(135deg,#151d35,#0d1325);
-    border-bottom:1px solid #26304d;
+    padding:25px 18px 20px;
+    text-align:center;
+    border-bottom:1px solid #1d263a;
+    background:rgba(8,11,20,.92);
+    position:sticky;
+    top:0;
+    z-index:20;
+    backdrop-filter:blur(15px);
 }
 
-.header h1{
-    font-size:22px;
+.logo{
+    font-size:27px;
+    font-weight:900;
+    letter-spacing:.5px;
 }
 
-.header p{
-    color:#9da8c5;
-    margin-top:5px;
+.subtitle{
+    color:var(--muted);
     font-size:13px;
+    margin-top:7px;
 }
 
 .container{
-    max-width:1000px;
+    max-width:1050px;
     margin:auto;
-    padding:18px;
+    padding:20px;
 }
 
-.card{
-    background:#11182b;
-    border:1px solid #26304d;
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:18px;
-    box-shadow:0 10px 30px rgba(0,0,0,.18);
+.hidden{
+    display:none!important;
 }
 
-.card h2{
-    font-size:17px;
-    margin-bottom:14px;
-}
+/* ANA GİRİŞ */
 
-.voice-area{
+.home{
+    min-height:calc(100vh - 100px);
     display:flex;
-    gap:10px;
-    flex-wrap:wrap;
+    flex-direction:column;
+    justify-content:center;
 }
 
-button{
-    border:0;
-    border-radius:12px;
-    padding:13px 18px;
-    font-size:14px;
-    font-weight:600;
+.home-title{
+    text-align:center;
+    margin-bottom:28px;
+}
+
+.home-title h2{
+    font-size:26px;
+}
+
+.home-title p{
+    color:var(--muted);
+    margin-top:8px;
+}
+
+.main-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+}
+
+.main-btn{
+    min-height:190px;
+    border-radius:28px;
+    background:#0c111e;
+    border:1px solid;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:.25s;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:12px;
+}
+
+.main-btn::before{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    opacity:.25;
+    filter:blur(25px);
+    transition:.25s;
+}
+
+.main-btn:hover{
+    transform:translateY(-5px) scale(1.015);
+}
+
+.main-btn:hover::before{
+    opacity:.55;
+}
+
+.main-btn .icon{
+    font-size:55px;
+    position:relative;
+}
+
+.main-btn .title{
+    font-size:21px;
+    font-weight:900;
+    position:relative;
+}
+
+.main-btn .desc{
+    color:#aab4ca;
+    font-size:12px;
+    position:relative;
+}
+
+.ipc{
+    border-color:rgba(0,255,136,.7);
+    box-shadow:
+        0 0 15px rgba(0,255,136,.2),
+        inset 0 0 30px rgba(0,255,136,.04);
+}
+
+.ipc::before{
+    background:var(--green);
+}
+
+.ipc .icon,
+.ipc .title{
+    color:var(--green);
+    text-shadow:
+        0 0 8px rgba(0,255,136,.8),
+        0 0 25px rgba(0,255,136,.45);
+}
+
+.adli{
+    border-color:rgba(255,23,68,.7);
+    box-shadow:
+        0 0 15px rgba(255,23,68,.2),
+        inset 0 0 30px rgba(255,23,68,.04);
+}
+
+.adli::before{
+    background:var(--red);
+}
+
+.adli .icon,
+.adli .title{
+    color:var(--red);
+    text-shadow:
+        0 0 8px rgba(255,23,68,.8),
+        0 0 25px rgba(255,23,68,.45);
+}
+
+/* UYGULAMA */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    gap:10px;
+}
+
+.topbar h2{
+    font-size:20px;
+}
+
+.back{
+    background:#182136;
+    color:white;
+    border:1px solid #303b55;
+    border-radius:10px;
+    padding:10px 14px;
     cursor:pointer;
 }
 
-.voice{
-    background:#e53935;
+.card{
+    background:rgba(16,21,34,.94);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:17px;
+    box-shadow:0 12px 35px rgba(0,0,0,.22);
+}
+
+.card-title{
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.field label{
+    display:block;
+    color:#a5afc4;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+select,
+input{
+    width:100%;
+    background:#090e19;
     color:white;
+    border:1px solid #303b55;
+    border-radius:11px;
+    padding:13px;
+    outline:none;
 }
 
-.voice.recording{
-    background:#ff1744;
-    animation:pulse 1.2s infinite;
+select:focus,
+input:focus,
+textarea:focus{
+    border-color:#4e8cff;
+    box-shadow:0 0 0 3px rgba(78,140,255,.08);
 }
 
-.generate{
-    background:#2563eb;
-    color:#fff;
-}
-
-.copy{
-    background:#16a34a;
-    color:white;
-}
-
-.word{
-    background:#7c3aed;
-    color:white;
-}
-
-.clear{
-    background:#334155;
-    color:#fff;
-}
-
-@keyframes pulse{
-    50%{
-        box-shadow:0 0 0 10px rgba(255,23,68,.12);
-    }
+.fixed{
+    opacity:.75;
+    cursor:not-allowed;
 }
 
 textarea{
     width:100%;
-    min-height:130px;
+    min-height:180px;
     resize:vertical;
-    border:1px solid #303b5d;
-    background:#0a1020;
-    color:#fff;
-    border-radius:13px;
-    padding:14px;
+    background:#080d17;
+    color:white;
+    border:1px solid #303b55;
+    border-radius:14px;
+    padding:15px;
     outline:none;
     font-size:15px;
     line-height:1.6;
 }
 
-textarea:focus{
-    border-color:#3b82f6;
+/* 6284 */
+
+.check-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    background:#0c111d;
+    border:1px solid #343d55;
+    border-radius:13px;
+    padding:13px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.check-card:hover{
+    border-color:#ff4164;
+}
+
+.check-card input{
+    width:20px;
+    height:20px;
+    accent-color:#ff1744;
+}
+
+.check-text strong{
+    display:block;
+    font-size:14px;
+}
+
+.check-text span{
+    display:block;
+    color:#8994ad;
+    font-size:11px;
+    margin-top:3px;
+}
+
+/* İŞARETLEYİCİLER */
+
+.markers{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+}
+
+.marker{
+    padding:9px 12px;
+    border:1px solid #34405a;
+    border-radius:10px;
+    background:#0b101c;
+    color:#b7c0d3;
+    cursor:pointer;
+    font-size:12px;
+    transition:.2s;
+}
+
+.marker.active{
+    color:white;
+    border-color:#4e8cff;
+    background:#142447;
+    box-shadow:0 0 12px rgba(78,140,255,.2);
+}
+
+/* SES */
+
+.voice-box{
+    border:1px dashed #35415b;
+    background:#0b101b;
+    border-radius:15px;
+    padding:15px;
+}
+
+.voice-buttons{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+    border-radius:11px;
+    padding:12px 17px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.voice{
+    color:white;
+    background:linear-gradient(135deg,#e00036,#ff1744);
+    box-shadow:0 0 18px rgba(255,23,68,.25);
+}
+
+.voice.recording{
+    animation:pulse 1.2s infinite;
+}
+
+.generate{
+    background:linear-gradient(135deg,#1769ff,#38a0ff);
+    color:white;
+    box-shadow:0 0 20px rgba(39,135,255,.2);
+}
+
+.copy{
+    background:#00b96b;
+    color:white;
+}
+
+.word{
+    background:#7137e8;
+    color:white;
+}
+
+.clear{
+    background:#263149;
+    color:white;
 }
 
 .status{
-    margin-top:12px;
-    color:#9da8c5;
-    font-size:13px;
-}
-
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-label{
-    display:block;
+    margin-top:10px;
+    color:#929db5;
     font-size:12px;
-    color:#9da8c5;
-    margin-bottom:6px;
 }
 
-input,select{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #303b5d;
-    background:#0a1020;
-    color:#fff;
-    outline:none;
+@keyframes pulse{
+    50%{
+        box-shadow:
+            0 0 0 7px rgba(255,23,68,.10),
+            0 0 25px rgba(255,23,68,.45);
+    }
 }
+
+/* SONUÇ */
 
 .result{
-    white-space:pre-wrap;
-    line-height:1.8;
-    min-height:350px;
-    background:#f8fafc;
-    color:#111827;
-    border-radius:14px;
-    padding:22px;
+    background:#f7f8fb;
+    color:#101522;
+    min-height:440px;
     font-family:Arial,sans-serif;
-    font-size:15px;
-    border:1px solid #d7dce5;
 }
 
 .actions{
     display:flex;
     gap:9px;
     flex-wrap:wrap;
-    margin-top:14px;
-}
-
-.notice{
-    padding:11px 13px;
-    border-radius:10px;
-    background:#17213a;
-    color:#aeb9d4;
-    font-size:12px;
     margin-top:12px;
 }
 
-@media(max-width:650px){
-    .form-grid{
+/* İPC */
+
+.ipc-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.ipc-item{
+    padding:13px;
+    border:1px solid #303b55;
+    background:#0b101b;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.ipc-item:hover{
+    border-color:#00ff88;
+}
+
+.ipc-item.active{
+    border-color:#00ff88;
+    background:rgba(0,255,136,.07);
+    box-shadow:0 0 13px rgba(0,255,136,.12);
+}
+
+.ipc-item strong{
+    font-size:13px;
+    display:block;
+}
+
+.ipc-item span{
+    color:#7f8ba3;
+    font-size:11px;
+    display:block;
+    margin-top:4px;
+}
+
+.footer{
+    text-align:center;
+    color:#56627b;
+    font-size:11px;
+    padding:15px;
+}
+
+@media(max-width:700px){
+
+    .main-buttons,
+    .grid,
+    .ipc-list{
         grid-template-columns:1fr;
     }
 
-    button{
-        flex:1;
+    .main-btn{
+        min-height:150px;
+    }
+
+    .home-title h2{
+        font-size:22px;
+    }
+
+    .container{
+        padding:13px;
+    }
+
+    .topbar{
+        align-items:flex-start;
     }
 }
 </style>
@@ -197,115 +501,352 @@ input,select{
 
 <body>
 
-<div class="header">
-    <h1>📋 Bilgi Notu Oluşturucu</h1>
-    <p>Olayı sesli anlat, bilgi notunu otomatik oluştur.</p>
-</div>
+<header class="header">
+    <div class="logo">📋 BİLGİ NOTU</div>
+    <div class="subtitle">Kolluk Bilgi Notu Oluşturucu</div>
+</header>
 
-<div class="container">
+<main class="container">
 
-    <div class="card">
+<!-- ANA SAYFA -->
 
-        <h2>🎙️ Olayı Anlat</h2>
+<section id="home" class="home">
 
-        <div class="voice-area">
+    <div class="home-title">
+        <h2>Bilgi Notu Türünü Seç</h2>
+        <p>Hazırlamak istediğin bilgi notu türünü seç.</p>
+    </div>
 
-            <button class="voice" id="voiceBtn">
-                🎙️ Sesli Anlat
-            </button>
+    <div class="main-buttons">
 
-            <button class="clear" id="clearBtn">
-                Temizle
-            </button>
+        <button class="main-btn ipc" onclick="openApp('ipc')">
+            <div class="icon">₺</div>
+            <div class="title">İPC BİLGİ NOTU</div>
+            <div class="desc">İdari yaptırım / kabahat işlemleri</div>
+        </button>
 
-        </div>
-
-        <br>
-
-        <textarea id="speechText"
-        placeholder="Örneğin: Yayladağı İlçesi Karaköse Mahallesinde 8 Temmuz 2026 günü saat 18:00 sıralarında Ramazan Karaca 2008 doğumlu erkek motosikletle seyir halinde iken gidon hakimiyetini kaybederek düşmüş, Samandağı Devlet Hastanesine kaldırılmış, hayati tehlikesi yok..."></textarea>
-
-        <div class="status" id="status">
-            Mikrofon hazır.
-        </div>
-
-        <div class="notice">
-            💡 Konuşurken ilçe, mahalle, tarih, saat, şahıs adı, doğum yılı,
-            cinsiyet ve olayın nasıl meydana geldiğini mümkün olduğunca söyle.
-        </div>
+        <button class="main-btn adli" onclick="openApp('adli')">
+            <div class="icon">⚖️</div>
+            <div class="title">ADLİ OLAY BİLGİ NOTU</div>
+            <div class="desc">Adli olay ve tahkikat işlemleri</div>
+        </button>
 
     </div>
 
+</section>
 
-    <div class="card">
 
-        <h2>⚙️ Bilgi Notu Bilgileri</h2>
+<!-- UYGULAMA -->
 
-        <div class="form-grid">
+<section id="app" class="hidden">
 
-            <div>
-                <label>Olay Tasnifi</label>
+    <div class="topbar">
 
-                <select id="classification">
-
-                    <option value="">Otomatik Belirlensin</option>
-
-                    <option value="Kayıp Eşya">
-                        Kayıp Eşya
-                    </option>
-
-                    <option value="Taksirle Yaralanma">
-                        Taksirle Yaralanma
-                    </option>
-
-                    <option value="Tehdit ve Hakaret">
-                        Tehdit ve Hakaret
-                    </option>
-
-                    <option value="Göçmen Kaçakçılığı/Organizatörlü">
-                        Göçmen Kaçakçılığı/Organizatörlü
-                    </option>
-
-                    <option value="Diğer">
-                        Diğer
-                    </option>
-
-                </select>
-
-            </div>
-
-            <div>
-                <label>Ek Bilgi</label>
-
-                <input
-                    id="extraInfo"
-                    placeholder="Varsa eklemek istediğin bilgi">
-            </div>
-
+        <div>
+            <h2 id="pageTitle">Bilgi Notu</h2>
         </div>
 
-        <br>
-
-        <button class="generate" id="generateBtn">
-            ✨ BİLGİ NOTU OLUŞTUR
+        <button class="back" onclick="goHome()">
+            ← Ana Menü
         </button>
 
     </div>
 
 
+    <!-- SABİT KONUM -->
+
     <div class="card">
 
-        <h2>📄 Oluşturulan Bilgi Notu</h2>
+        <div class="card-title">
+            📍 Olay Yeri
+        </div>
 
-        <textarea id="result" class="result"></textarea>
+        <div class="grid">
+
+            <div class="field">
+                <label>İlçe</label>
+                <input
+                    id="district"
+                    value="Yayladağı"
+                    readonly
+                    class="fixed">
+            </div>
+
+            <div class="field">
+                <label>Mahalle</label>
+
+                <select id="neighborhood">
+                    <option value="">Mahalle Seçiniz</option>
+                    <option>Sebenoba</option>
+                    <option>Karaköse</option>
+                    <option>Bezge</option>
+                    <option>Çandır</option>
+                    <option>Çakı</option>
+                    <option>Karacurun</option>
+                    <option>Denizgören</option>
+                    <option>Aydınbahçe</option>
+                    <option>Gözlüce</option>
+                    <option>Yayıkdamlar</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADLİ -->
+
+    <div id="adliPanel">
+
+        <div class="card">
+
+            <div class="card-title">
+                ⚖️ Adli Olay Tasnifi
+            </div>
+
+            <select id="adliType">
+
+                <option value="">Olay Tasnifini Seçiniz</option>
+
+                <option>Taksirle Yaralanma(Jandarma Bölgesi 1 Yaralı)</option>
+
+                <option>Kasten Yaralama</option>
+
+                <option>Kasten Yaralama(Teşebbüs)</option>
+
+                <option>Tehdit ve Hakaret</option>
+
+                <option>Kasten Yaralama, Tehdit ve Hakaret</option>
+
+                <option>Kazaen Yaralanma (Yüksekten düşme)</option>
+
+                <option>Kayıp Eşya (Plaka)</option>
+
+                <option>Yasadışı Giriş</option>
+
+                <option>Evden Hırsızlık</option>
+
+                <option>Trafik Güvenliğini Tehlikeye Sokmak (TCK 179/3)</option>
+
+                <option>Resmi Belgeyi Bozmak, Yok Etmek veya Gizlemek</option>
+
+                <option>Hakkı Olmayan Yere Tecavüz -Mala Zarar Verme-Tehdit</option>
+
+                <option>ASAL Aranan Şahsın Yakalandığı</option>
+
+                <option>Göçmen Kaçakçılığı/Organizatörlü</option>
+
+                <option>Diğer</option>
+
+            </select>
+
+        </div>
+
+
+        <div class="card">
+
+            <label class="check-card">
+
+                <input type="checkbox" id="law6284">
+
+                <div class="check-text">
+
+                    <strong>6284 Sayılı Kanun Kapsamında</strong>
+
+                    <span>
+                        İşaretlendiğinde KONU kısmının sonuna otomatik eklenir.
+                    </span>
+
+                </div>
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- İPC -->
+
+    <div id="ipcPanel" class="hidden">
+
+        <div class="card">
+
+            <div class="card-title">
+                ₺ İPC / Kabahat Seçimi
+            </div>
+
+            <div class="ipc-list">
+
+                <div class="ipc-item" data-ipc="Emre Aykırı Davranış">
+                    <strong>Emre Aykırı Davranış</strong>
+                    <span>5326 Sayılı Kabahatler Kanunu md. 32</span>
+                </div>
+
+                <div class="ipc-item" data-ipc="İzinsiz Hurdacılık Faaliyeti">
+                    <strong>İzinsiz Hurdacılık Faaliyeti</strong>
+                    <span>İlgili mevzuat kapsamında</span>
+                </div>
+
+                <div class="ipc-item" data-ipc="Kabahatler Kanunu Kapsamında İdari Yaptırım">
+                    <strong>Kabahatler Kanunu Kapsamında İdari Yaptırım</strong>
+                    <span>5326 Sayılı Kabahatler Kanunu</span>
+                </div>
+
+                <div class="ipc-item" data-ipc="Diğer">
+                    <strong>Diğer</strong>
+                    <span>Manuel açıklama alanı</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- İŞARETLEYİCİLER -->
+
+    <div class="card">
+
+        <div class="card-title">
+            🏷️ İşaretleyiciler
+        </div>
+
+        <div class="markers">
+
+            <button class="marker" data-marker="1 Yaralı">
+                1 Yaralı
+            </button>
+
+            <button class="marker" data-marker="Hayati Tehlikesi Yoktur">
+                Hayati Tehlikesi Yok
+            </button>
+
+            <button class="marker" data-marker="Gözaltına Alınmıştır">
+                Gözaltı
+            </button>
+
+            <button class="marker" data-marker="Şikâyetçidir">
+                Şikâyetçi
+            </button>
+
+            <button class="marker" data-marker="Tahkikata Başlanılmıştır">
+                Tahkikat
+            </button>
+
+            <button class="marker" data-marker="Adli Tahkikata Başlanılmıştır">
+                Adli Tahkikat
+            </button>
+
+            <button class="marker" data-marker="Müracaatta Bulunmuştur">
+                Müracaat
+            </button>
+
+            <button class="marker" data-marker="Komutanlığımıza Müracaatta Bulunmuştur">
+                Komutanlık Müracaatı
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SES -->
+
+    <div class="card">
+
+        <div class="card-title">
+            🎙️ Bilgi Notunu Sesli Olarak Anlat
+        </div>
+
+        <div class="voice-box">
+
+            <div class="voice-buttons">
+
+                <button
+                    id="voiceBtn"
+                    class="btn voice">
+                    🎙️ Sesli Anlat
+                </button>
+
+                <button
+                    id="clearSpeech"
+                    class="btn clear">
+                    Temizle
+                </button>
+
+            </div>
+
+            <div id="voiceStatus" class="status">
+                Mikrofon hazır.
+            </div>
+
+            <br>
+
+            <textarea
+                id="speechText"
+                placeholder="Buraya olayı yazabilir veya yukarıdaki Sesli Anlat butonuna basarak konuşabilirsin..."></textarea>
+
+        </div>
+
+    </div>
+
+
+    <!-- EK BİLGİ -->
+
+    <div class="card">
+
+        <div class="card-title">
+            📝 Ek Bilgiler
+        </div>
+
+        <input
+            id="extraInfo"
+            placeholder="Örneğin: şahıs gözaltına alınmıştır, hastaneye sevk edilmiştir...">
+
+    </div>
+
+
+    <!-- OLUŞTUR -->
+
+    <div class="card">
+
+        <button
+            id="generateBtn"
+            class="btn generate"
+            style="width:100%;padding:16px;">
+            ✨ BİLGİ NOTUNU OLUŞTUR
+        </button>
+
+    </div>
+
+
+    <!-- SONUÇ -->
+
+    <div class="card">
+
+        <div class="card-title">
+            📄 Oluşturulan Bilgi Notu
+        </div>
+
+        <textarea
+            id="result"
+            class="result"
+            placeholder="Bilgi notu burada oluşturulacak..."></textarea>
 
         <div class="actions">
 
-            <button class="copy" id="copyBtn">
+            <button
+                id="copyBtn"
+                class="btn copy">
                 📋 Kopyala
             </button>
 
-            <button class="word" id="wordBtn">
+            <button
+                id="wordBtn"
+                class="btn word">
                 📝 Word Olarak İndir
             </button>
 
@@ -313,21 +854,139 @@ input,select{
 
     </div>
 
+</section>
+
+<div class="footer">
+    Bilgi Notu Oluşturucu
 </div>
+
+</main>
 
 
 <script>
 
-/* =========================================
-   SESLİ YAZMA
-========================================= */
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-const voiceBtn = document.getElementById("voiceBtn");
-const speechText = document.getElementById("speechText");
-const statusBox = document.getElementById("status");
-
+let currentMode = "adli";
 let recognition = null;
 let listening = false;
+
+const neighborhoods = [
+    "Sebenoba",
+    "Karaköse",
+    "Bezge",
+    "Çandır",
+    "Çakı",
+    "Karacurun",
+    "Denizgören",
+    "Aydınbahçe",
+    "Gözlüce",
+    "Yayıkdamlar"
+];
+
+
+/* =====================================================
+   SAYFA GEÇİŞ
+===================================================== */
+
+function openApp(mode){
+
+    currentMode = mode;
+
+    document.getElementById("home")
+        .classList.add("hidden");
+
+    document.getElementById("app")
+        .classList.remove("hidden");
+
+    if(mode === "ipc"){
+
+        document.getElementById("pageTitle").innerText =
+            "₺ İPC Bilgi Notu";
+
+        document.getElementById("ipcPanel")
+            .classList.remove("hidden");
+
+        document.getElementById("adliPanel")
+            .classList.add("hidden");
+
+    }else{
+
+        document.getElementById("pageTitle").innerText =
+            "⚖️ Adli Olay Bilgi Notu";
+
+        document.getElementById("adliPanel")
+            .classList.remove("hidden");
+
+        document.getElementById("ipcPanel")
+            .classList.add("hidden");
+
+    }
+
+}
+
+function goHome(){
+
+    stopRecording();
+
+    document.getElementById("app")
+        .classList.add("hidden");
+
+    document.getElementById("home")
+        .classList.remove("hidden");
+
+}
+
+
+/* =====================================================
+   İŞARETLEYİCİ
+===================================================== */
+
+document.querySelectorAll(".marker")
+.forEach(btn => {
+
+    btn.addEventListener("click",function(){
+
+        this.classList.toggle("active");
+
+    });
+
+});
+
+
+/* =====================================================
+   İPC SEÇİMİ
+===================================================== */
+
+document.querySelectorAll(".ipc-item")
+.forEach(item => {
+
+    item.addEventListener("click",function(){
+
+        document.querySelectorAll(".ipc-item")
+        .forEach(x => x.classList.remove("active"));
+
+        this.classList.add("active");
+
+    });
+
+});
+
+
+/* =====================================================
+   SESLİ YAZMA
+===================================================== */
+
+const voiceBtn =
+    document.getElementById("voiceBtn");
+
+const voiceStatus =
+    document.getElementById("voiceStatus");
+
+const speechText =
+    document.getElementById("speechText");
 
 const SpeechRecognition =
     window.SpeechRecognition ||
@@ -335,7 +994,8 @@ const SpeechRecognition =
 
 if(SpeechRecognition){
 
-    recognition = new SpeechRecognition();
+    recognition =
+        new SpeechRecognition();
 
     recognition.lang = "tr-TR";
 
@@ -349,11 +1009,11 @@ if(SpeechRecognition){
 
         voiceBtn.classList.add("recording");
 
-        voiceBtn.innerHTML =
+        voiceBtn.innerText =
             "🔴 Dinleniyor... Durdur";
 
-        statusBox.innerText =
-            "Konuşabilirsin. Bitirdiğinde butona tekrar bas.";
+        voiceStatus.innerText =
+            "Konuşabilirsin. Bitirdiğinde tekrar bas.";
 
     };
 
@@ -361,9 +1021,11 @@ if(SpeechRecognition){
 
         let finalText = "";
 
-        for(let i = event.resultIndex;
+        for(
+            let i = event.resultIndex;
             i < event.results.length;
-            i++){
+            i++
+        ){
 
             if(event.results[i].isFinal){
 
@@ -384,7 +1046,7 @@ if(SpeechRecognition){
 
     recognition.onerror = function(event){
 
-        statusBox.innerText =
+        voiceStatus.innerText =
             "Mikrofon hatası: " + event.error;
 
         stopRecording();
@@ -407,8 +1069,9 @@ if(SpeechRecognition){
 
     voiceBtn.disabled = true;
 
-    statusBox.innerText =
-        "Bu tarayıcı sesli yazmayı desteklemiyor. Safari veya Chrome kullan.";
+    voiceStatus.innerText =
+        "Bu tarayıcı sesli yazmayı desteklemiyor.";
+
 }
 
 
@@ -416,7 +1079,10 @@ voiceBtn.addEventListener("click",function(){
 
     if(!recognition){
 
-        alert("Tarayıcınız sesli yazmayı desteklemiyor.");
+        alert(
+            "Bu tarayıcı sesli yazmayı desteklemiyor."
+        );
+
         return;
 
     }
@@ -428,9 +1094,7 @@ voiceBtn.addEventListener("click",function(){
     }else{
 
         try{
-
             recognition.start();
-
         }catch(e){}
 
     }
@@ -444,7 +1108,7 @@ function stopRecording(){
 
     voiceBtn.classList.remove("recording");
 
-    voiceBtn.innerHTML =
+    voiceBtn.innerText =
         "🎙️ Sesli Anlat";
 
     if(recognition){
@@ -455,91 +1119,17 @@ function stopRecording(){
 
     }
 
-    statusBox.innerText =
-        "Ses kaydı tamamlandı.";
+    voiceStatus.innerText =
+        "Sesli anlatım tamamlandı.";
 
 }
 
 
-/* =========================================
-   OTOMATİK TASİNF
-========================================= */
-
-function detectClassification(text){
-
-    const t =
-        text.toLocaleLowerCase("tr-TR");
-
-    if(
-        t.includes("cüzdan") ||
-        t.includes("ruhsat") ||
-        t.includes("plaka") ||
-        t.includes("kaybet") ||
-        t.includes("kayıp")
-    ){
-
-        return "Kayıp Eşya";
-
-    }
-
-    if(
-        t.includes("tehdit") ||
-        t.includes("hakaret")
-    ){
-
-        return "Tehdit ve Hakaret";
-
-    }
-
-    if(
-        t.includes("göçmen") ||
-        t.includes("organizatör") ||
-        t.includes("kaçakçılık")
-    ){
-
-        return "Göçmen Kaçakçılığı/Organizatörlü";
-
-    }
-
-    if(
-        t.includes("kaza") ||
-        t.includes("yaralan") ||
-        t.includes("motosiklet") ||
-        t.includes("motor") ||
-        t.includes("direksiyon hakimiyet") ||
-        t.includes("gidon hakimiyet")
-    ){
-
-        return "Taksirle Yaralanma";
-
-    }
-
-    return "Diğer";
-
-}
-
-
-/* =========================================
+/* =====================================================
    TARİH
-========================================= */
+===================================================== */
 
 function normalizeDate(text){
-
-    const match = text.match(
-        /(\d{1,2})[.\-/ ](\d{1,2})[.\-/ ](\d{4})/
-    );
-
-    if(match){
-
-        return (
-            match[1].padStart(2,"0") +
-            "." +
-            match[2].padStart(2,"0") +
-            "." +
-            match[3]
-        );
-
-    }
 
     const months = {
         "ocak":"01",
@@ -556,7 +1146,23 @@ function normalizeDate(text){
         "aralık":"12"
     };
 
-    const m = text.match(
+    let m = text.match(
+        /(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{4})/
+    );
+
+    if(m){
+
+        return (
+            m[1].padStart(2,"0") +
+            "." +
+            m[2].padStart(2,"0") +
+            "." +
+            m[3]
+        );
+
+    }
+
+    m = text.match(
         /(\d{1,2})\s+(ocak|şubat|mart|nisan|mayıs|haziran|temmuz|ağustos|eylül|ekim|kasım|aralık)\s+(\d{4})/i
     );
 
@@ -565,7 +1171,9 @@ function normalizeDate(text){
         return (
             m[1].padStart(2,"0") +
             "." +
-            months[m[2].toLocaleLowerCase("tr-TR")] +
+            months[
+                m[2].toLocaleLowerCase("tr-TR")
+            ] +
             "." +
             m[3]
         );
@@ -577,14 +1185,14 @@ function normalizeDate(text){
 }
 
 
-/* =========================================
+/* =====================================================
    SAAT
-========================================= */
+===================================================== */
 
 function normalizeTime(text){
 
-    const m = text.match(
-        /(?:saat\s*)?(\d{1,2})(?::|\.| )(\d{2})/
+    let m = text.match(
+        /(?:saat\s*)?(\d{1,2})\s*[:.]\s*(\d{2})/i
     );
 
     if(m){
@@ -597,236 +1205,41 @@ function normalizeTime(text){
 
     }
 
-    const simple =
-        text.match(/saat\s+(\d{1,2})/i);
-
-    if(simple){
-
-        return simple[1].padStart(2,"0") + ":00";
-
-    }
-
-    return null;
-
-}
-
-
-/* =========================================
-   ŞAHIS BİLGİSİ
-========================================= */
-
-function findPerson(text){
-
-    const birth =
-        text.match(
-            /([A-ZÇĞİÖŞÜ][a-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜ][a-zçğıöşü]+)+).*?(\d{4})\s*doğumlu/i
-        );
-
-    if(birth){
-
-        let name = birth[1].trim();
-
-        let year = birth[2];
-
-        let gender = "";
-
-        const before =
-            text.substring(
-                Math.max(0,birth.index-80),
-                birth.index+birth[0].length+80
-            ).toLocaleLowerCase("tr-TR");
-
-        if(
-            before.includes("erkek")
-        ){
-
-            gender = "Erkek";
-
-        }else if(
-            before.includes("kadın")
-        ){
-
-            gender = "Kadın";
-
-        }
-
-        return {
-            name:name,
-            year:year,
-            gender:gender
-        };
-
-    }
-
-    return null;
-
-}
-
-
-/* =========================================
-   İLÇE / MAHALLE
-========================================= */
-
-function findLocation(text){
-
-    let district = "";
-
-    let neighborhood = "";
-
-    const d =
-        text.match(
-            /([A-ZÇĞİÖŞÜa-zçğıöşü]+)\s+İlçesi/i
-        );
-
-    if(d){
-
-        district = d[1];
-
-    }
-
-    const n =
-        text.match(
-            /([A-ZÇĞİÖŞÜa-zçğıöşü]+)\s+Mahallesi/i
-        );
-
-    if(n){
-
-        neighborhood = n[1];
-
-    }
-
-    return {
-        district,
-        neighborhood
-    };
-
-}
-
-
-/* =========================================
-   OLAY METNİ
-========================================= */
-
-function buildDescription(text, type){
-
-    const location =
-        findLocation(text);
-
-    const date =
-        normalizeDate(text) || "................";
-
-    const time =
-        normalizeTime(text) || "........";
-
-    const person =
-        findPerson(text);
-
-    let nameBlock = "";
-
-    if(person){
-
-        nameBlock =
-            `*${person.name} (${location.district || "Yayladağı"}/${person.year}/${person.gender || "Erkek"})*`;
-
-    }else{
-
-        nameBlock =
-            "*Şahıs bilgisi belirtilmemiştir.*";
-
-    }
-
-
-    if(type === "Kayıp Eşya"){
-
-        return `Yayladağı İlçesi ${location.neighborhood || "................"} Mahallesinde ${date} günü saat ${time} sıralarında ${nameBlock} isimli şahıs, ${extractLostItem(text)} kaybettiğini beyanla Komutanlığımıza müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
-
-    }
-
-
-    if(type === "Taksirle Yaralanma"){
-
-        let vehicle =
-            extractVehicle(text);
-
-        let hospital =
-            extractHospital(text);
-
-        let danger =
-            text.toLocaleLowerCase("tr-TR").includes("hayati tehlike")
-            ? "hayati tehlikesinin bulunmadığı"
-            : "hayati tehlike durumu belirtilmemiştir";
-
-        return `Yayladağı İlçesi ${location.neighborhood || "................"} Mahallesinde ${date} günü saat ${time} sıralarında ${nameBlock} isimli şahsın ${vehicle} seyir halinde iken gidon/direksiyon hâkimiyetini kaybederek kaza yaptığı anlaşılmıştır. Meydana gelen kaza neticesinde yaralanan şahıs${hospital ? " " + hospital : ""} sevk edilmiş olup, ${danger} anlaşılmıştır. Tahkikata başlanılmıştır.`;
-
-    }
-
-
-    if(type === "Tehdit ve Hakaret"){
-
-        return `Yayladağı İlçesi ${location.neighborhood || "................"} Mahallesinde ${date} günü saat ${time} sıralarında olay meydana geldiği, mağdur şahısların tehdit ve hakaret içerikli sözlere maruz kaldıkları ve Komutanlığımıza müracaatta bulundukları anlaşılmıştır. Tahkikata başlanılmıştır.`;
-
-    }
-
-
-    return `Yayladağı İlçesi ${location.neighborhood || "................"} Mahallesinde ${date} günü saat ${time} sıralarında ${text.trim()} şeklinde olay meydana gelmiştir. Tahkikata başlanılmıştır.`;
-
-}
-
-
-/* =========================================
-   YARDIMCI FONKSİYONLAR
-========================================= */
-
-function extractLostItem(text){
-
-    const t =
-        text.toLocaleLowerCase("tr-TR");
-
-    if(t.includes("cüzdan"))
-        return "cüzdanını";
-
-    if(t.includes("ruhsat") && t.includes("plaka"))
-        return "aracına ait plaka ve ruhsatını";
-
-    if(t.includes("plaka"))
-        return "motosikletine ait plakasını";
-
-    return "eşyasını";
-
-}
-
-
-function extractVehicle(text){
-
-    const t =
-        text.toLocaleLowerCase("tr-TR");
-
-    let plate =
-        text.match(
-            /\b\d{2}\s?[A-ZÇĞİÖŞÜ]{1,3}\s?\d{2,5}\b/i
-        );
-
-    let vehicle =
-        t.includes("motosiklet") || t.includes("motor")
-        ? "sevk ve idaresindeki " +
-          (plate ? plate[0] + " plakalı motosiklet ile" : "motosiklet ile")
-        : "sevk ve idaresindeki araç ile";
-
-    return vehicle;
-
-}
-
-
-function extractHospital(text){
-
-    const m =
-        text.match(
-            /([A-ZÇĞİÖŞÜa-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜa-zçğıöşü]+){0,4}\s+Devlet Hastanesine)/i
-        );
+    m = text.match(
+        /saat\s+(\d{1,2})/i
+    );
 
     if(m){
 
-        return "ambulans ile " + m[1];
+        return m[1].padStart(2,"0") + ":00";
+
+    }
+
+    return null;
+
+}
+
+
+/* =====================================================
+   MAHALLE
+===================================================== */
+
+function findNeighborhood(text){
+
+    const lower =
+        text.toLocaleLowerCase("tr-TR");
+
+    for(const n of neighborhoods){
+
+        if(
+            lower.includes(
+                n.toLocaleLowerCase("tr-TR")
+            )
+        ){
+
+            return n;
+
+        }
 
     }
 
@@ -835,106 +1248,693 @@ function extractHospital(text){
 }
 
 
-/* =========================================
-   OLUŞTUR
-========================================= */
+/* =====================================================
+   ŞAHISLAR
+===================================================== */
 
-document.getElementById("generateBtn")
-.addEventListener("click",function(){
+function findPeople(text){
+
+    const people = [];
+
+    const seen = new Set();
+
+    /*
+      Örnek:
+      Ramazan KARACA (Yayladağı/2008/Erkek)
+    */
+
+    const p1 =
+        /([A-ZÇĞİÖŞÜa-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜa-zçğıöşü]+)+)\s*\(\s*([^)]*)\)/g;
+
+    let m;
+
+    while((m = p1.exec(text)) !== null){
+
+        const name = m[1].trim();
+
+        if(
+            !seen.has(
+                name.toLocaleLowerCase("tr-TR")
+            )
+        ){
+
+            people.push({
+                name:name,
+                info:m[2].trim()
+            });
+
+            seen.add(
+                name.toLocaleLowerCase("tr-TR")
+            );
+
+        }
+
+    }
+
+    return people;
+
+}
+
+
+/* =====================================================
+   PLAKA
+===================================================== */
+
+function findPlate(text){
+
+    const m =
+        text.match(
+            /\b\d{2}\s?[A-ZÇĞİÖŞÜ]{1,3}\s?\d{2,5}\b/i
+        );
+
+    return m ? m[0] : "";
+
+}
+
+
+/* =====================================================
+   HASTANE
+===================================================== */
+
+function findHospital(text){
+
+    const m =
+        text.match(
+            /([A-ZÇĞİÖŞÜa-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜa-zçğıöşü]+){0,5}\s+Devlet Hastanesine)/i
+        );
+
+    return m ? m[1] : "";
+
+}
+
+
+/* =====================================================
+   İPC
+===================================================== */
+
+function selectedIPC(){
+
+    const active =
+        document.querySelector(".ipc-item.active");
+
+    if(!active) return "";
+
+    return active.dataset.ipc;
+
+}
+
+
+/* =====================================================
+   OTOMATİK TASİNF
+===================================================== */
+
+function autoClassification(text){
+
+    const t =
+        text.toLocaleLowerCase("tr-TR");
+
+    if(
+        t.includes("hurdacılık") ||
+        t.includes("hurda")
+    ){
+
+        return "Emre Aykırı Davranış (Hurdacılık)";
+
+    }
+
+    if(
+        t.includes("yoklama") ||
+        t.includes("bakaya") ||
+        t.includes("aranan şahıs")
+    ){
+
+        return "ASAL Aranan Şahsın Yakalandığı";
+
+    }
+
+    if(
+        t.includes("yüksekten düş") ||
+        t.includes("kayalıklardan")
+    ){
+
+        return "Kazaen Yaralanma (Yüksekten düşme)";
+
+    }
+
+    if(
+        t.includes("yasadışı giriş") ||
+        t.includes("düzensiz göçmen")
+    ){
+
+        return "Yasadışı Giriş";
+
+    }
+
+    if(
+        t.includes("evden hırsızlık") ||
+        t.includes("yatağın altında") ||
+        t.includes("çalındı")
+    ){
+
+        return "Evden Hırsızlık";
+
+    }
+
+    if(
+        t.includes("179") ||
+        t.includes("promil") ||
+        t.includes("alkollü")
+    ){
+
+        return "Trafik Güvenliğini Tehlikeye Sokmak (TCK 179/3)";
+
+    }
+
+    if(
+        t.includes("şase numarası") ||
+        t.includes("plakasız") &&
+        t.includes("motosiklet")
+    ){
+
+        return "Resmi Belgeyi Bozmak, Yok Etmek veya Gizlemek";
+
+    }
+
+    if(
+        t.includes("mala zarar") ||
+        t.includes("bahçesine") &&
+        t.includes("tehdit")
+    ){
+
+        return "Hakkı Olmayan Yere Tecavüz -Mala Zarar Verme-Tehdit";
+
+    }
+
+    if(
+        t.includes("tehdit") &&
+        t.includes("hakaret") &&
+        (
+            t.includes("eşim") ||
+            t.includes("eş") ||
+            t.includes("6284")
+        )
+    ){
+
+        return "Kasten Yaralama, Tehdit ve Hakaret";
+
+    }
+
+    if(
+        t.includes("darp") ||
+        t.includes("kasten yaralama")
+    ){
+
+        return "Kasten Yaralama";
+
+    }
+
+    if(
+        t.includes("tehdit") ||
+        t.includes("hakaret")
+    ){
+
+        return "Tehdit ve Hakaret";
+
+    }
+
+    if(
+        t.includes("kaza") ||
+        t.includes("motosiklet") ||
+        t.includes("motor") ||
+        t.includes("gidon") ||
+        t.includes("yaralan")
+    ){
+
+        return "Taksirle Yaralanma(Jandarma Bölgesi 1 Yaralı)";
+
+    }
+
+    if(
+        t.includes("plaka") &&
+        (
+            t.includes("kayıp") ||
+            t.includes("kaybol")
+        )
+    ){
+
+        return "Kayıp Eşya (Plaka)";
+
+    }
+
+    return "Diğer";
+
+}
+
+
+/* =====================================================
+   ŞAHIS GÖSTERİMİ
+===================================================== */
+
+function formatPeople(people){
+
+    if(!people.length){
+
+        return "ilgili şahıs";
+
+    }
+
+    return people
+        .map(
+            p => `*${p.name} (${p.info})*`
+        )
+        .join(" ve ");
+
+}
+
+
+/* =====================================================
+   MARKER
+===================================================== */
+
+function selectedMarkers(){
+
+    return [...document.querySelectorAll(
+        ".marker.active"
+    )].map(
+        x => x.dataset.marker
+    );
+
+}
+
+
+/* =====================================================
+   BİLGİ NOTU OLUŞTUR
+===================================================== */
+
+function createNote(){
 
     const text =
         speechText.value.trim();
 
     if(!text){
 
-        alert("Önce olayı anlat veya metni yaz.");
+        alert(
+            "Önce olayı sesli olarak anlat veya metni yaz."
+        );
+
         return;
 
     }
 
-    let type =
-        document.getElementById("classification").value;
+    const neighborhood =
+        document.getElementById("neighborhood").value
+        || findNeighborhood(text);
 
-    if(!type){
+    if(!neighborhood){
 
-        type = detectClassification(text);
+        alert(
+            "Lütfen mahalleyi seç."
+        );
+
+        return;
 
     }
 
-    const description =
-        buildDescription(text,type);
+    const date =
+        normalizeDate(text) ||
+        "................";
 
-    const result =
-`BİLGİ NOTU
+    const time =
+        normalizeTime(text) ||
+        "........";
 
-KONU: ${type}
+    const people =
+        findPeople(text);
 
-AÇIKLAMA:
+    const markers =
+        selectedMarkers();
 
-${description}
+    const extra =
+        document.getElementById("extraInfo")
+        .value.trim();
+
+    let topic = "";
+
+    let explanation = "";
+
+    if(currentMode === "ipc"){
+
+        const ipc =
+            selectedIPC();
+
+        topic =
+            ipc
+            ? `Kabahatler Kanunu Kapsamında ${ipc}`
+            : "İPC Bilgi Notu";
+
+        explanation =
+            `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahsın ${ipc || "ilgili kabahat"} kapsamında kurallara aykırı faaliyette bulunduğu tespit edilmiştir.`;
+
+        if(ipc === "Emre Aykırı Davranış"){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen devriye faaliyeti sırasında ${formatPeople(people)} isimli şahsın gerekli kurallara aykırı şekilde faaliyette bulunduğu anlaşılmıştır. 5326 Sayılı Kabahatler Kanununun 32'nci maddesi kapsamında "Emre Aykırı Davranış" nedeniyle idari yaptırım uygulanmıştır.`;
+
+        }
+
+        if(ipc === "İzinsiz Hurdacılık Faaliyeti"){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen devriye faaliyeti sırasında ${formatPeople(people)} isimli şahsın izinsiz hurdacılık faaliyeti yaptığı tespit edilmiştir. Şahıs hakkında ilgili mevzuat kapsamında gerekli idari işlem uygulanmıştır.`;
+
+        }
+
+        explanation +=
+            extra ? " " + extra : "";
+
+        explanation +=
+            "\n\nArz ederim.";
+
+    }else{
+
+        let selected =
+            document.getElementById("adliType").value;
+
+        const type =
+            selected ||
+            autoClassification(text);
+
+        topic = type;
+
+        const t =
+            text.toLocaleLowerCase("tr-TR");
+
+
+        /* TAKSİRLE YARALANMA */
+
+        if(
+            type.includes("Taksirle Yaralanma")
+        ){
+
+            const plate =
+                findPlate(text);
+
+            const vehicle =
+                t.includes("motosiklet") ||
+                t.includes("motor")
+                ? `${plate ? plate + " plakalı " : ""}motosiklet`
+                : "araç";
+
+            const hospital =
+                findHospital(text);
+
+            let hospitalText =
+                hospital
+                ? `Meydana gelen kaza neticesinde yaralanan şahıs ambulans ile ${hospital} sevk edilmiş olup,`
+                : "Meydana gelen kaza neticesinde yaralanan şahıs";
+
+            const danger =
+                t.includes("hayati tehlikesi yok") ||
+                t.includes("hayati tehlikesinin bulunmadığı")
+                ? "hayati tehlikesinin bulunmadığı anlaşılmıştır."
+                : "hayati tehlike durumu belirtilmemiştir.";
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahsın sevk ve idaresindeki ${vehicle} ile seyir halinde iken gidon hâkimiyetini kaybederek motosikletten düştüğü anlaşılmıştır. ${hospitalText} ${danger}`;
+
+        }
+
+
+        /* KAYIP PLAKA */
+
+        else if(
+            type.includes("Kayıp Eşya")
+        ){
+
+            const plate =
+                findPlate(text);
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahıs, motosikletine ait ${plate ? plate + " nolu " : ""}plakasının kaybolduğunu beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
+
+        }
+
+
+        /* TEHDİT HAKARET */
+
+        else if(
+            type.includes("Tehdit") ||
+            type.includes("Hakaret")
+        ){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahıs, olay nedeniyle tehdit ve hakaret içerikli sözlere maruz kaldığını beyan ederek şikâyetçi olmuştur.`;
+
+            if(
+                document.getElementById("law6284").checked
+            ){
+
+                explanation +=
+                    " Şahsa 6284 Sayılı Kanun kapsamında tüm hakları anlatılmış, kanundan faydalanmak istediğini beyan etmiştir.";
+
+            }
+
+            explanation +=
+                " Adli tahkikata başlanmıştır.";
+
+        }
+
+
+        /* YÜKSEKTEN DÜŞME */
+
+        else if(
+            type.includes("Yüksekten")
+        ){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahsın kayalıklardan dengesini kaybederek düşmesi sonucu hayati tehlikesi olmayacak şekilde yaralandığı anlaşılmıştır. Adli Tahkikata başlanılmıştır.`;
+
+        }
+
+
+        /* YASADIŞI GİRİŞ */
+
+        else if(
+            type === "Yasadışı Giriş"
+        ){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında Suriye ülkesinden yasadışı yollarla Türkiye'ye giriş yaptığı tespit edilen Suriye uyruklu düzensiz göçmen yakalanmıştır. Şahsın idari işlemlerinin tamamlanmasına müteakip Hatay İl Göç İdaresi ekiplerine teslim edilecektir.`;
+
+        }
+
+
+        /* EV HIRSIZLIK */
+
+        else if(
+            type === "Evden Hırsızlık"
+        ){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ikamet eden ${formatPeople(people)} isimli şahıs ${date} günü saat ${time} sıralarında ikamet ettiği evinde bulunan eşyalarının çalındığını beyan ederek müracaatta bulunmuştur. Adli tahkikata başlanılmıştır.`;
+
+        }
+
+
+        /* ALKOL */
+
+        else if(
+            type.includes("Trafik Güvenliğini")
+        ){
+
+            const promil =
+                text.match(
+                    /\b\d+(?:[.,]\d+)?\s*promil\b/i
+                );
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında Yayladağı İlçe J.K.lığı Trafik ekiplerince icra edilen faaliyette ${formatPeople(people)} isimli şahsın ${promil ? promil[0] : "alkollü"} olarak araç kullandığı tespit edilmiştir. Adli tahkikata başlanılmıştır.`;
+
+        }
+
+
+        /* ASAL */
+
+        else if(
+            type.includes("ASAL")
+        ){
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen yol emniyet ve kontrol devriyesi esnasında ${formatPeople(people)} isimli şahsın Yoklama/Bakaya kaçağı olarak arandığı tespit edilmiş olup şahsa gerekli tebliğ yapılarak serbest bırakılmıştır.`;
+
+        }
+
+
+        /* GENEL */
+
+        else{
+
+            explanation =
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${text}. Adli tahkikata başlanılmıştır.`;
+
+        }
+
+
+        if(extra){
+
+            explanation +=
+                " " + extra;
+
+        }
+
+
+        /*
+           6284 konu sonuna eklenir
+        */
+
+        if(
+            document.getElementById("law6284").checked
+        ){
+
+            topic +=
+                " (6284 Sayılı Kanun Kapsamında)";
+
+        }
+
+
+        topic =
+            topic.replace(
+                /\(6284 Sayılı Kanun Kapsamında\)/g,
+                ""
+            ).trim();
+
+        if(
+            document.getElementById("law6284").checked
+        ){
+
+            topic +=
+                " (6284 Sayılı Kanun Kapsamında)";
+
+        }
+
+    }
+
+
+    /* MARKER EKLERİ */
+
+    if(markers.length){
+
+        explanation +=
+            "\n" +
+            markers.join(" - ") +
+            ".";
+
+    }
+
+
+    /* ÇIKTI */
+
+    const output =
+`*BİLGİ NOTU*
+
+*KONU:* ${topic}
+
+*AÇIKLAMA:*
+
+${explanation}
 
 Arz ederim.`;
 
-    document.getElementById("result").value =
-        result;
+    resultBox.value =
+        output;
 
-});
+}
 
 
-/* =========================================
+/* =====================================================
+   OLUŞTUR BUTONU
+===================================================== */
+
+const resultBox =
+    document.getElementById("result");
+
+document.getElementById("generateBtn")
+.addEventListener("click",createNote);
+
+
+/* =====================================================
    KOPYALA
-========================================= */
+===================================================== */
 
 document.getElementById("copyBtn")
 .addEventListener("click",async function(){
 
-    const result =
-        document.getElementById("result");
+    if(!resultBox.value.trim()){
 
-    await navigator.clipboard.writeText(
-        result.value
-    );
+        alert("Önce bilgi notunu oluştur.");
 
-    this.innerText = "✅ Kopyalandı";
+        return;
+
+    }
+
+    try{
+
+        await navigator.clipboard.writeText(
+            resultBox.value
+        );
+
+    }catch(e){
+
+        resultBox.select();
+        document.execCommand("copy");
+
+    }
+
+    this.innerText =
+        "✅ Kopyalandı";
 
     setTimeout(()=>{
 
-        this.innerText = "📋 Kopyala";
+        this.innerText =
+            "📋 Kopyala";
 
     },1500);
 
 });
 
 
-/* =========================================
+/* =====================================================
    WORD
-========================================= */
+===================================================== */
 
 document.getElementById("wordBtn")
 .addEventListener("click",function(){
 
     const text =
-        document.getElementById("result").value;
+        resultBox.value;
 
-    if(!text){
+    if(!text.trim()){
 
-        alert("Önce bilgi notu oluştur.");
+        alert(
+            "Önce bilgi notunu oluştur."
+        );
+
         return;
 
     }
 
-    const html = `
-<html>
+    const html =
+`<html>
 <head>
 <meta charset="UTF-8">
 <style>
 body{
-    font-family:Arial;
+    font-family:Arial,sans-serif;
     font-size:12pt;
 }
 pre{
     white-space:pre-wrap;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
 }
 </style>
 </head>
@@ -945,22 +1945,26 @@ pre{
 
     const blob =
         new Blob(
-            ['\ufeff',html],
+            ["\ufeff",html],
             {type:"application/msword"}
         );
 
     const url =
         URL.createObjectURL(blob);
 
-    const a =
+    const link =
         document.createElement("a");
 
-    a.href = url;
+    link.href = url;
 
-    a.download =
+    link.download =
         "Bilgi_Notu.doc";
 
-    a.click();
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
 
     URL.revokeObjectURL(url);
 
@@ -973,27 +1977,46 @@ function escapeHtml(text){
         .replace(/&/g,"&amp;")
         .replace(/</g,"&lt;")
         .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;");
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-/* =========================================
+/* =====================================================
    TEMİZLE
-========================================= */
+===================================================== */
 
-document.getElementById("clearBtn")
+document.getElementById("clearSpeech")
 .addEventListener("click",function(){
 
     speechText.value = "";
 
-    document.getElementById("result").value = "";
+    resultBox.value = "";
 
-    document.getElementById("extraInfo").value = "";
+    document.getElementById("extraInfo")
+        .value = "";
 
-    document.getElementById("classification").value = "";
+    document.getElementById("neighborhood")
+        .value = "";
 
-    statusBox.innerText =
+    document.getElementById("adliType")
+        .value = "";
+
+    document.getElementById("law6284")
+        .checked = false;
+
+    document.querySelectorAll(".marker")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+    document.querySelectorAll(".ipc-item")
+        .forEach(x =>
+            x.classList.remove("active")
+        );
+
+    voiceStatus.innerText =
         "Mikrofon hazır.";
 
 });
