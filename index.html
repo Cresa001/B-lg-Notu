@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b14">
+<meta name="theme-color" content="#070a12">
+
 <title>Bilgi Notu Oluşturucu</title>
 
 <style>
+
 *{
     box-sizing:border-box;
     margin:0;
@@ -14,191 +16,565 @@
 }
 
 :root{
-    --bg:#070a12;
+    --bg:#060912;
     --panel:#101522;
-    --panel2:#151b2c;
+    --panel2:#141b2c;
     --border:#29334b;
     --text:#f4f7ff;
     --muted:#8994ad;
+
     --green:#00ff88;
     --red:#ff1744;
-    --blue:#2787ff;
+    --blue:#248cff;
+    --purple:#9d4edd;
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
     background:
-        radial-gradient(circle at 20% 10%,rgba(0,255,136,.07),transparent 25%),
-        radial-gradient(circle at 80% 10%,rgba(255,23,68,.07),transparent 25%),
-        var(--bg);
+        radial-gradient(
+            circle at 15% 10%,
+            rgba(0,255,136,.09),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(255,23,68,.09),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(36,140,255,.045),
+            transparent 35%
+        ),
+        #060912;
+
     color:var(--text);
     min-height:100vh;
 }
 
-button,
-select,
-textarea,
-input{
-    font-family:inherit;
-}
+
+/* ================================
+   HEADER
+================================ */
 
 .header{
-    padding:25px 18px 20px;
+    padding:25px 18px 18px;
+
     text-align:center;
-    border-bottom:1px solid #1d263a;
-    background:rgba(8,11,20,.92);
+
+    border-bottom:
+        1px solid rgba(80,100,150,.18);
+
+    background:
+        rgba(6,9,18,.88);
+
+    backdrop-filter:blur(18px);
+
     position:sticky;
     top:0;
-    z-index:20;
-    backdrop-filter:blur(15px);
+    z-index:50;
 }
 
 .logo{
-    font-size:27px;
-    font-weight:900;
-    letter-spacing:.5px;
+    font-size:28px;
+    font-weight:950;
+
+    letter-spacing:.7px;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.15);
 }
 
 .subtitle{
-    color:var(--muted);
+    color:#8793ad;
+
     font-size:13px;
-    margin-top:7px;
+
+    margin-top:6px;
 }
+
+
+/* ================================
+   GENEL
+================================ */
 
 .container{
     max-width:1050px;
+
     margin:auto;
-    padding:20px;
+
+    padding:
+        20px
+        20px
+        45px;
 }
 
 .hidden{
-    display:none!important;
+    display:none !important;
 }
 
-/* ANA GİRİŞ */
+
+/* ================================
+   ANA SAYFA
+================================ */
 
 .home{
-    min-height:calc(100vh - 100px);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    min-height:auto;
+
+    padding-top:25px;
 }
 
-.home-title{
+
+/* NEON BAŞLIK */
+
+.selection-header{
     text-align:center;
-    margin-bottom:28px;
+
+    margin:
+        5px
+        auto
+        24px;
 }
 
-.home-title h2{
-    font-size:26px;
+.selection-title{
+    position:relative;
+
+    display:inline-block;
+
+    font-size:
+        clamp(25px,5vw,38px);
+
+    font-weight:950;
+
+    letter-spacing:.4px;
+
+    color:#f5f8ff;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,.25),
+        0 0 22px rgba(36,140,255,.3);
 }
 
-.home-title p{
-    color:var(--muted);
-    margin-top:8px;
+.selection-title::after{
+    content:"";
+
+    display:block;
+
+    width:75%;
+
+    height:3px;
+
+    margin:
+        9px auto
+        0;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #00ff88,
+            #248cff,
+            #ff1744,
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px rgba(36,140,255,.8),
+        0 0 20px rgba(36,140,255,.35);
 }
+
+.selection-subtitle{
+    margin-top:12px;
+
+    color:#7f8ba5;
+
+    font-size:13px;
+}
+
+
+/* ================================
+   ANA BUTONLAR
+================================ */
 
 .main-buttons{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:22px;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:18px;
+
+    margin-bottom:25px;
 }
 
 .main-btn{
-    min-height:190px;
-    border-radius:28px;
-    background:#0c111e;
+    min-height:165px;
+
+    border-radius:25px;
+
+    background:#0b101c;
+
     border:1px solid;
+
     position:relative;
+
     overflow:hidden;
+
     cursor:pointer;
-    transition:.25s;
+
+    transition:
+        transform .25s,
+        box-shadow .25s;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     flex-direction:column;
-    gap:12px;
+
+    gap:9px;
 }
 
 .main-btn::before{
     content:"";
+
     position:absolute;
-    inset:-3px;
-    opacity:.25;
-    filter:blur(25px);
+
+    inset:0;
+
+    opacity:.14;
+
     transition:.25s;
 }
 
 .main-btn:hover{
-    transform:translateY(-5px) scale(1.015);
+    transform:
+        translateY(-4px)
+        scale(1.01);
 }
 
 .main-btn:hover::before{
-    opacity:.55;
+    opacity:.28;
 }
 
 .main-btn .icon{
-    font-size:55px;
+    font-size:48px;
+
     position:relative;
+
+    z-index:2;
 }
 
 .main-btn .title{
-    font-size:21px;
-    font-weight:900;
+    font-size:20px;
+
+    font-weight:950;
+
     position:relative;
+
+    z-index:2;
 }
 
 .main-btn .desc{
-    color:#aab4ca;
+    color:#a6b0c4;
+
     font-size:12px;
+
     position:relative;
+
+    z-index:2;
 }
 
+
+/* İPC */
+
 .ipc{
-    border-color:rgba(0,255,136,.7);
+    border-color:
+        rgba(0,255,136,.75);
+
     box-shadow:
-        0 0 15px rgba(0,255,136,.2),
-        inset 0 0 30px rgba(0,255,136,.04);
+        0 0 14px
+        rgba(0,255,136,.18),
+
+        inset 0 0 35px
+        rgba(0,255,136,.04);
 }
 
 .ipc::before{
-    background:var(--green);
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,255,136,.45),
+            transparent 65%
+        );
 }
 
 .ipc .icon,
 .ipc .title{
     color:var(--green);
+
     text-shadow:
-        0 0 8px rgba(0,255,136,.8),
-        0 0 25px rgba(0,255,136,.45);
+        0 0 7px
+        rgba(0,255,136,.9),
+
+        0 0 24px
+        rgba(0,255,136,.4);
 }
 
+
+/* ADLİ */
+
 .adli{
-    border-color:rgba(255,23,68,.7);
+    border-color:
+        rgba(255,23,68,.75);
+
     box-shadow:
-        0 0 15px rgba(255,23,68,.2),
-        inset 0 0 30px rgba(255,23,68,.04);
+        0 0 14px
+        rgba(255,23,68,.18),
+
+        inset 0 0 35px
+        rgba(255,23,68,.04);
 }
 
 .adli::before{
-    background:var(--red);
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,23,68,.45),
+            transparent 65%
+        );
 }
 
 .adli .icon,
 .adli .title{
     color:var(--red);
+
     text-shadow:
-        0 0 8px rgba(255,23,68,.8),
-        0 0 25px rgba(255,23,68,.45);
+        0 0 7px
+        rgba(255,23,68,.9),
+
+        0 0 24px
+        rgba(255,23,68,.4);
 }
 
-/* UYGULAMA */
+
+/* ================================
+   GEÇMİŞ BİLGİ NOTLARI
+================================ */
+
+.history-section{
+    margin-top:10px;
+
+    padding:
+        18px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(36,140,255,.075),
+            rgba(10,15,27,.92)
+        );
+
+    border:
+        1px solid
+        rgba(36,140,255,.45);
+
+    box-shadow:
+        0 0 18px
+        rgba(36,140,255,.09),
+
+        inset 0 0 25px
+        rgba(36,140,255,.025);
+}
+
+.history-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+}
+
+.history-title{
+    color:#42a5ff;
+
+    font-size:18px;
+
+    font-weight:950;
+
+    text-shadow:
+        0 0 8px
+        rgba(36,140,255,.8),
+
+        0 0 20px
+        rgba(36,140,255,.3);
+}
+
+.history-count{
+    color:#7890b5;
+
+    font-size:11px;
+}
+
+.history-empty{
+    text-align:center;
+
+    padding:20px 10px;
+
+    color:#68748d;
+
+    font-size:12px;
+}
+
+.history-list{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.history-item{
+    position:relative;
+
+    border-radius:14px;
+
+    background:#0a0f1b;
+
+    padding:13px 45px 13px 14px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    border:1px solid #28334a;
+}
+
+.history-item:hover{
+    transform:translateX(2px);
+}
+
+.history-item.ipc-history{
+    border-color:
+        rgba(0,255,136,.65);
+
+    box-shadow:
+        inset 3px 0 0
+        var(--green);
+}
+
+.history-item.adli-history{
+    border-color:
+        rgba(255,23,68,.65);
+
+    box-shadow:
+        inset 3px 0 0
+        var(--red);
+}
+
+.history-type{
+    font-size:10px;
+
+    font-weight:900;
+
+    margin-bottom:5px;
+
+    text-transform:uppercase;
+}
+
+.ipc-history .history-type{
+    color:var(--green);
+}
+
+.adli-history .history-type{
+    color:var(--red);
+}
+
+.history-topic{
+    font-weight:800;
+
+    font-size:14px;
+
+    padding-right:5px;
+}
+
+.history-date{
+    color:#75829b;
+
+    font-size:10px;
+
+    margin-top:6px;
+}
+
+.delete-history{
+    position:absolute;
+
+    right:10px;
+
+    top:50%;
+
+    transform:
+        translateY(-50%);
+
+    width:30px;
+
+    height:30px;
+
+    border-radius:9px;
+
+    border:1px solid
+        rgba(255,23,68,.35);
+
+    background:
+        rgba(255,23,68,.08);
+
+    color:#ff5272;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    z-index:5;
+}
+
+.delete-history:hover{
+    background:
+        rgba(255,23,68,.2);
+
+    box-shadow:
+        0 0 12px
+        rgba(255,23,68,.25);
+}
+
+
+/* ================================
+   UYGULAMA
+================================ */
 
 .topbar{
     display:flex;
+
     justify-content:space-between;
+
     align-items:center;
+
     margin-bottom:18px;
+
     gap:10px;
 }
 
@@ -208,49 +584,86 @@ input{
 
 .back{
     background:#182136;
+
     color:white;
-    border:1px solid #303b55;
+
+    border:
+        1px solid #303b55;
+
     border-radius:10px;
+
     padding:10px 14px;
+
     cursor:pointer;
 }
 
+
+/* ================================
+   CARD
+================================ */
+
 .card{
-    background:rgba(16,21,34,.94);
-    border:1px solid var(--border);
+    background:
+        rgba(16,21,34,.94);
+
+    border:
+        1px solid
+        var(--border);
+
     border-radius:20px;
+
     padding:18px;
+
     margin-bottom:17px;
-    box-shadow:0 12px 35px rgba(0,0,0,.22);
+
+    box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.22);
 }
 
 .card-title{
     font-size:16px;
-    font-weight:800;
+
+    font-weight:850;
+
     margin-bottom:15px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:14px;
 }
 
 .field label{
     display:block;
+
     color:#a5afc4;
+
     font-size:12px;
+
     margin-bottom:7px;
 }
 
 select,
 input{
     width:100%;
+
     background:#090e19;
+
     color:white;
-    border:1px solid #303b55;
+
+    border:
+        1px solid
+        #303b55;
+
     border-radius:11px;
+
     padding:13px;
+
     outline:none;
 }
 
@@ -258,117 +671,188 @@ select:focus,
 input:focus,
 textarea:focus{
     border-color:#4e8cff;
-    box-shadow:0 0 0 3px rgba(78,140,255,.08);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(78,140,255,.08);
 }
 
 .fixed{
     opacity:.75;
+
     cursor:not-allowed;
 }
 
 textarea{
     width:100%;
+
     min-height:180px;
+
     resize:vertical;
+
     background:#080d17;
+
     color:white;
-    border:1px solid #303b55;
+
+    border:
+        1px solid
+        #303b55;
+
     border-radius:14px;
+
     padding:15px;
+
     outline:none;
+
     font-size:15px;
+
     line-height:1.6;
 }
 
-/* 6284 */
+
+/* ================================
+   6284
+================================ */
 
 .check-card{
     display:flex;
-    align-items:center;
-    gap:12px;
-    background:#0c111d;
-    border:1px solid #343d55;
-    border-radius:13px;
-    padding:13px;
-    cursor:pointer;
-    transition:.2s;
-}
 
-.check-card:hover{
-    border-color:#ff4164;
+    align-items:center;
+
+    gap:12px;
+
+    background:#0c111d;
+
+    border:
+        1px solid
+        #343d55;
+
+    border-radius:13px;
+
+    padding:13px;
+
+    cursor:pointer;
 }
 
 .check-card input{
     width:20px;
+
     height:20px;
+
     accent-color:#ff1744;
 }
 
 .check-text strong{
     display:block;
+
     font-size:14px;
 }
 
 .check-text span{
     display:block;
+
     color:#8994ad;
+
     font-size:11px;
+
     margin-top:3px;
 }
 
-/* İŞARETLEYİCİLER */
+
+/* ================================
+   MARKERS
+================================ */
 
 .markers{
     display:flex;
+
     flex-wrap:wrap;
+
     gap:9px;
 }
 
 .marker{
     padding:9px 12px;
-    border:1px solid #34405a;
+
+    border:
+        1px solid
+        #34405a;
+
     border-radius:10px;
+
     background:#0b101c;
+
     color:#b7c0d3;
+
     cursor:pointer;
+
     font-size:12px;
+
     transition:.2s;
 }
 
 .marker.active{
     color:white;
+
     border-color:#4e8cff;
+
     background:#142447;
-    box-shadow:0 0 12px rgba(78,140,255,.2);
+
+    box-shadow:
+        0 0 12px
+        rgba(78,140,255,.2);
 }
 
-/* SES */
+
+/* ================================
+   SES
+================================ */
 
 .voice-box{
-    border:1px dashed #35415b;
+    border:
+        1px dashed
+        #35415b;
+
     background:#0b101b;
+
     border-radius:15px;
+
     padding:15px;
 }
 
 .voice-buttons{
     display:flex;
+
     gap:10px;
+
     flex-wrap:wrap;
 }
 
 .btn{
     border:0;
+
     border-radius:11px;
+
     padding:12px 17px;
+
     font-weight:800;
+
     cursor:pointer;
 }
 
 .voice{
     color:white;
-    background:linear-gradient(135deg,#e00036,#ff1744);
-    box-shadow:0 0 18px rgba(255,23,68,.25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #e00036,
+            #ff1744
+        );
+
+    box-shadow:
+        0 0 18px
+        rgba(255,23,68,.25);
 }
 
 .voice.recording{
@@ -376,101 +860,157 @@ textarea{
 }
 
 .generate{
-    background:linear-gradient(135deg,#1769ff,#38a0ff);
+    background:
+        linear-gradient(
+            135deg,
+            #1769ff,
+            #38a0ff
+        );
+
     color:white;
-    box-shadow:0 0 20px rgba(39,135,255,.2);
+
+    box-shadow:
+        0 0 20px
+        rgba(39,135,255,.2);
 }
 
 .copy{
     background:#00b96b;
+
     color:white;
 }
 
 .word{
     background:#7137e8;
+
     color:white;
 }
 
 .clear{
     background:#263149;
+
     color:white;
 }
 
 .status{
     margin-top:10px;
+
     color:#929db5;
+
     font-size:12px;
 }
 
-@keyframes pulse{
-    50%{
-        box-shadow:
-            0 0 0 7px rgba(255,23,68,.10),
-            0 0 25px rgba(255,23,68,.45);
-    }
-}
 
-/* SONUÇ */
-
-.result{
-    background:#f7f8fb;
-    color:#101522;
-    min-height:440px;
-    font-family:Arial,sans-serif;
-}
-
-.actions{
-    display:flex;
-    gap:9px;
-    flex-wrap:wrap;
-    margin-top:12px;
-}
-
-/* İPC */
+/* ================================
+   İPC
+================================ */
 
 .ipc-list{
     display:grid;
-    grid-template-columns:1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap:9px;
 }
 
 .ipc-item{
     padding:13px;
-    border:1px solid #303b55;
+
+    border:
+        1px solid
+        #303b55;
+
     background:#0b101b;
+
     border-radius:12px;
+
     cursor:pointer;
+
     transition:.2s;
 }
 
 .ipc-item:hover{
-    border-color:#00ff88;
+    border-color:
+        var(--green);
 }
 
 .ipc-item.active{
-    border-color:#00ff88;
-    background:rgba(0,255,136,.07);
-    box-shadow:0 0 13px rgba(0,255,136,.12);
+    border-color:
+        var(--green);
+
+    background:
+        rgba(0,255,136,.07);
+
+    box-shadow:
+        0 0 13px
+        rgba(0,255,136,.12);
 }
 
 .ipc-item strong{
     font-size:13px;
+
     display:block;
 }
 
 .ipc-item span{
     color:#7f8ba3;
+
     font-size:11px;
+
     display:block;
+
     margin-top:4px;
 }
 
-.footer{
-    text-align:center;
-    color:#56627b;
-    font-size:11px;
-    padding:15px;
+
+/* ================================
+   RESULT
+================================ */
+
+.result{
+    background:#f7f8fb;
+
+    color:#101522;
+
+    min-height:440px;
+
+    font-family:Arial,sans-serif;
 }
+
+.actions{
+    display:flex;
+
+    gap:9px;
+
+    flex-wrap:wrap;
+
+    margin-top:12px;
+}
+
+
+/* ================================
+   ANİMASYON
+================================ */
+
+@keyframes pulse{
+
+    50%{
+
+        box-shadow:
+            0 0 0 7px
+            rgba(255,23,68,.10),
+
+            0 0 25px
+            rgba(255,23,68,.45);
+    }
+
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
 
 @media(max-width:700px){
 
@@ -481,79 +1021,192 @@ textarea{
     }
 
     .main-btn{
-        min-height:150px;
+        min-height:145px;
     }
 
-    .home-title h2{
-        font-size:22px;
+    .home{
+        padding-top:10px;
     }
 
     .container{
-        padding:13px;
+        padding:
+            15px
+            13px
+            35px;
+    }
+
+    .selection-header{
+        margin-bottom:20px;
+    }
+
+    .selection-title{
+        font-size:27px;
     }
 
     .topbar{
         align-items:flex-start;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
 <header class="header">
-    <div class="logo">📋 BİLGİ NOTU</div>
-    <div class="subtitle">Kolluk Bilgi Notu Oluşturucu</div>
+
+    <div class="logo">
+        📋 BİLGİ NOTU
+    </div>
+
+    <div class="subtitle">
+        Kolluk Bilgi Notu Oluşturucu
+    </div>
+
 </header>
+
 
 <main class="container">
 
-<!-- ANA SAYFA -->
+
+<!-- ==================================================
+     ANA SAYFA
+================================================== -->
 
 <section id="home" class="home">
 
-    <div class="home-title">
-        <h2>Bilgi Notu Türünü Seç</h2>
-        <p>Hazırlamak istediğin bilgi notu türünü seç.</p>
+
+    <div class="selection-header">
+
+        <div class="selection-title">
+            BİLGİ NOTU OLUŞTUR
+        </div>
+
+        <div class="selection-subtitle">
+            Hazırlamak istediğin bilgi notu türünü seç
+        </div>
+
     </div>
+
 
     <div class="main-buttons">
 
-        <button class="main-btn ipc" onclick="openApp('ipc')">
-            <div class="icon">₺</div>
-            <div class="title">İPC BİLGİ NOTU</div>
-            <div class="desc">İdari yaptırım / kabahat işlemleri</div>
+
+        <button
+            class="main-btn ipc"
+            onclick="openApp('ipc')">
+
+            <div class="icon">
+                ₺
+            </div>
+
+            <div class="title">
+                İPC BİLGİ NOTU
+            </div>
+
+            <div class="desc">
+                İdari yaptırım / kabahat işlemleri
+            </div>
+
         </button>
 
-        <button class="main-btn adli" onclick="openApp('adli')">
-            <div class="icon">⚖️</div>
-            <div class="title">ADLİ OLAY BİLGİ NOTU</div>
-            <div class="desc">Adli olay ve tahkikat işlemleri</div>
+
+        <button
+            class="main-btn adli"
+            onclick="openApp('adli')">
+
+            <div class="icon">
+                ⚖️
+            </div>
+
+            <div class="title">
+                ADLİ OLAY BİLGİ NOTU
+            </div>
+
+            <div class="desc">
+                Adli olay ve tahkikat işlemleri
+            </div>
+
         </button>
+
 
     </div>
+
+
+    <!-- ==========================================
+         GEÇMİŞ
+    =========================================== -->
+
+    <section class="history-section">
+
+        <div class="history-header">
+
+            <div class="history-title">
+                🔵 GEÇMİŞ BİLGİ NOTLARIM
+            </div>
+
+            <div
+                id="historyCount"
+                class="history-count">
+                0 kayıt
+            </div>
+
+        </div>
+
+
+        <div
+            id="historyList"
+            class="history-list">
+
+        </div>
+
+
+        <div
+            id="historyEmpty"
+            class="history-empty">
+
+            Henüz oluşturulmuş bilgi notu bulunmuyor.
+
+        </div>
+
+    </section>
+
 
 </section>
 
 
-<!-- UYGULAMA -->
+<!-- ==================================================
+     UYGULAMA
+================================================== -->
 
-<section id="app" class="hidden">
+<section
+    id="app"
+    class="hidden">
+
 
     <div class="topbar">
 
         <div>
-            <h2 id="pageTitle">Bilgi Notu</h2>
+            <h2 id="pageTitle">
+                Bilgi Notu
+            </h2>
         </div>
 
-        <button class="back" onclick="goHome()">
+        <button
+            class="back"
+            onclick="goHome()">
+
             ← Ana Menü
+
         </button>
 
     </div>
 
 
-    <!-- SABİT KONUM -->
+    <!-- KONUM -->
 
     <div class="card">
 
@@ -561,22 +1214,37 @@ textarea{
             📍 Olay Yeri
         </div>
 
+
         <div class="grid">
 
+
             <div class="field">
-                <label>İlçe</label>
+
+                <label>
+                    İlçe
+                </label>
+
                 <input
                     id="district"
                     value="Yayladağı"
                     readonly
                     class="fixed">
+
             </div>
 
+
             <div class="field">
-                <label>Mahalle</label>
+
+                <label>
+                    Mahalle
+                </label>
 
                 <select id="neighborhood">
-                    <option value="">Mahalle Seçiniz</option>
+
+                    <option value="">
+                        Mahalle Seçiniz
+                    </option>
+
                     <option>Sebenoba</option>
                     <option>Karaköse</option>
                     <option>Bezge</option>
@@ -587,8 +1255,11 @@ textarea{
                     <option>Aydınbahçe</option>
                     <option>Gözlüce</option>
                     <option>Yayıkdamlar</option>
+
                 </select>
+
             </div>
+
 
         </div>
 
@@ -597,7 +1268,9 @@ textarea{
 
     <!-- ADLİ -->
 
-    <div id="adliPanel">
+    <div
+        id="adliPanel">
+
 
         <div class="card">
 
@@ -605,39 +1278,72 @@ textarea{
                 ⚖️ Adli Olay Tasnifi
             </div>
 
+
             <select id="adliType">
 
-                <option value="">Olay Tasnifini Seçiniz</option>
+                <option value="">
+                    Olay Tasnifini Seçiniz
+                </option>
 
-                <option>Taksirle Yaralanma(Jandarma Bölgesi 1 Yaralı)</option>
+                <option>
+                    Taksirle Yaralanma(Jandarma Bölgesi 1 Yaralı)
+                </option>
 
-                <option>Kasten Yaralama</option>
+                <option>
+                    Kasten Yaralama
+                </option>
 
-                <option>Kasten Yaralama(Teşebbüs)</option>
+                <option>
+                    Kasten Yaralama(Teşebbüs)
+                </option>
 
-                <option>Tehdit ve Hakaret</option>
+                <option>
+                    Tehdit ve Hakaret
+                </option>
 
-                <option>Kasten Yaralama, Tehdit ve Hakaret</option>
+                <option>
+                    Kasten Yaralama, Tehdit ve Hakaret
+                </option>
 
-                <option>Kazaen Yaralanma (Yüksekten düşme)</option>
+                <option>
+                    Kazaen Yaralanma (Yüksekten düşme)
+                </option>
 
-                <option>Kayıp Eşya (Plaka)</option>
+                <option>
+                    Kayıp Eşya (Plaka)
+                </option>
 
-                <option>Yasadışı Giriş</option>
+                <option>
+                    Yasadışı Giriş
+                </option>
 
-                <option>Evden Hırsızlık</option>
+                <option>
+                    Evden Hırsızlık
+                </option>
 
-                <option>Trafik Güvenliğini Tehlikeye Sokmak (TCK 179/3)</option>
+                <option>
+                    Trafik Güvenliğini Tehlikeye Sokmak (TCK 179/3)
+                </option>
 
-                <option>Resmi Belgeyi Bozmak, Yok Etmek veya Gizlemek</option>
+                <option>
+                    Resmi Belgeyi Bozmak, Yok Etmek veya Gizlemek
+                </option>
 
-                <option>Hakkı Olmayan Yere Tecavüz -Mala Zarar Verme-Tehdit</option>
+                <option>
+                    Hakkı Olmayan Yere Tecavüz -Mala Zarar Verme-Tehdit
+                </option>
 
-                <option>ASAL Aranan Şahsın Yakalandığı</option>
+                <option>
+                    ASAL Aranan Şahsın Yakalandığı
+                </option>
 
-                <option>Göçmen Kaçakçılığı/Organizatörlü</option>
+                <option>
+                    Göçmen Kaçakçılığı/Organizatörlü
+                </option>
 
-                <option>Diğer</option>
+                <option>
+                    Diğer
+                </option>
 
             </select>
 
@@ -648,11 +1354,15 @@ textarea{
 
             <label class="check-card">
 
-                <input type="checkbox" id="law6284">
+                <input
+                    type="checkbox"
+                    id="law6284">
 
                 <div class="check-text">
 
-                    <strong>6284 Sayılı Kanun Kapsamında</strong>
+                    <strong>
+                        6284 Sayılı Kanun Kapsamında
+                    </strong>
 
                     <span>
                         İşaretlendiğinde KONU kısmının sonuna otomatik eklenir.
@@ -664,12 +1374,16 @@ textarea{
 
         </div>
 
+
     </div>
 
 
     <!-- İPC -->
 
-    <div id="ipcPanel" class="hidden">
+    <div
+        id="ipcPanel"
+        class="hidden">
+
 
         <div class="card">
 
@@ -677,27 +1391,69 @@ textarea{
                 ₺ İPC / Kabahat Seçimi
             </div>
 
+
             <div class="ipc-list">
 
-                <div class="ipc-item" data-ipc="Emre Aykırı Davranış">
-                    <strong>Emre Aykırı Davranış</strong>
-                    <span>5326 Sayılı Kabahatler Kanunu md. 32</span>
+
+                <div
+                    class="ipc-item"
+                    data-ipc="Emre Aykırı Davranış">
+
+                    <strong>
+                        Emre Aykırı Davranış
+                    </strong>
+
+                    <span>
+                        5326 Sayılı Kabahatler Kanunu md. 32
+                    </span>
+
                 </div>
 
-                <div class="ipc-item" data-ipc="İzinsiz Hurdacılık Faaliyeti">
-                    <strong>İzinsiz Hurdacılık Faaliyeti</strong>
-                    <span>İlgili mevzuat kapsamında</span>
+
+                <div
+                    class="ipc-item"
+                    data-ipc="İzinsiz Hurdacılık Faaliyeti">
+
+                    <strong>
+                        İzinsiz Hurdacılık Faaliyeti
+                    </strong>
+
+                    <span>
+                        İlgili mevzuat kapsamında
+                    </span>
+
                 </div>
 
-                <div class="ipc-item" data-ipc="Kabahatler Kanunu Kapsamında İdari Yaptırım">
-                    <strong>Kabahatler Kanunu Kapsamında İdari Yaptırım</strong>
-                    <span>5326 Sayılı Kabahatler Kanunu</span>
+
+                <div
+                    class="ipc-item"
+                    data-ipc="Kabahatler Kanunu Kapsamında İdari Yaptırım">
+
+                    <strong>
+                        Kabahatler Kanunu Kapsamında İdari Yaptırım
+                    </strong>
+
+                    <span>
+                        5326 Sayılı Kabahatler Kanunu
+                    </span>
+
                 </div>
 
-                <div class="ipc-item" data-ipc="Diğer">
-                    <strong>Diğer</strong>
-                    <span>Manuel açıklama alanı</span>
+
+                <div
+                    class="ipc-item"
+                    data-ipc="Diğer">
+
+                    <strong>
+                        Diğer
+                    </strong>
+
+                    <span>
+                        Manuel açıklama alanı
+                    </span>
+
                 </div>
+
 
             </div>
 
@@ -714,39 +1470,65 @@ textarea{
             🏷️ İşaretleyiciler
         </div>
 
+
         <div class="markers">
 
-            <button class="marker" data-marker="1 Yaralı">
+
+            <button
+                class="marker"
+                data-marker="1 Yaralı">
                 1 Yaralı
             </button>
 
-            <button class="marker" data-marker="Hayati Tehlikesi Yoktur">
-                Hayati Tehlikesi Yok
+
+            <button
+                class="marker"
+                data-marker="Hayati Tehlikesi Yoktur">
+                Hayati Tehlike Yok
             </button>
 
-            <button class="marker" data-marker="Gözaltına Alınmıştır">
+
+            <button
+                class="marker"
+                data-marker="Gözaltına Alınmıştır">
                 Gözaltı
             </button>
 
-            <button class="marker" data-marker="Şikâyetçidir">
+
+            <button
+                class="marker"
+                data-marker="Şikâyetçidir">
                 Şikâyetçi
             </button>
 
-            <button class="marker" data-marker="Tahkikata Başlanılmıştır">
+
+            <button
+                class="marker"
+                data-marker="Tahkikata Başlanılmıştır">
                 Tahkikat
             </button>
 
-            <button class="marker" data-marker="Adli Tahkikata Başlanılmıştır">
+
+            <button
+                class="marker"
+                data-marker="Adli Tahkikata Başlanılmıştır">
                 Adli Tahkikat
             </button>
 
-            <button class="marker" data-marker="Müracaatta Bulunmuştur">
+
+            <button
+                class="marker"
+                data-marker="Müracaatta Bulunmuştur">
                 Müracaat
             </button>
 
-            <button class="marker" data-marker="Komutanlığımıza Müracaatta Bulunmuştur">
+
+            <button
+                class="marker"
+                data-marker="Komutanlığımıza Müracaatta Bulunmuştur">
                 Komutanlık Müracaatı
             </button>
+
 
         </div>
 
@@ -761,33 +1543,50 @@ textarea{
             🎙️ Bilgi Notunu Sesli Olarak Anlat
         </div>
 
+
         <div class="voice-box">
 
+
             <div class="voice-buttons">
+
 
                 <button
                     id="voiceBtn"
                     class="btn voice">
+
                     🎙️ Sesli Anlat
+
                 </button>
+
 
                 <button
                     id="clearSpeech"
                     class="btn clear">
+
                     Temizle
+
                 </button>
 
+
             </div>
 
-            <div id="voiceStatus" class="status">
+
+            <div
+                id="voiceStatus"
+                class="status">
+
                 Mikrofon hazır.
+
             </div>
+
 
             <br>
 
+
             <textarea
                 id="speechText"
-                placeholder="Buraya olayı yazabilir veya yukarıdaki Sesli Anlat butonuna basarak konuşabilirsin..."></textarea>
+                placeholder="Olayı doğal şekilde anlat. Örneğin: Karaköse mahallesinde bugün saat 18'de Ramazan Karaca motorla giderken gidon hakimiyetini kaybetmiş, düşmüş, hastaneye kaldırılmış..."></textarea>
+
 
         </div>
 
@@ -802,9 +1601,10 @@ textarea{
             📝 Ek Bilgiler
         </div>
 
+
         <input
             id="extraInfo"
-            placeholder="Örneğin: şahıs gözaltına alınmıştır, hastaneye sevk edilmiştir...">
+            placeholder="Eklemek istediğin bilgi...">
 
     </div>
 
@@ -817,7 +1617,9 @@ textarea{
             id="generateBtn"
             class="btn generate"
             style="width:100%;padding:16px;">
+
             ✨ BİLGİ NOTUNU OLUŞTUR
+
         </button>
 
     </div>
@@ -831,49 +1633,66 @@ textarea{
             📄 Oluşturulan Bilgi Notu
         </div>
 
+
         <textarea
             id="result"
             class="result"
             placeholder="Bilgi notu burada oluşturulacak..."></textarea>
 
+
         <div class="actions">
+
 
             <button
                 id="copyBtn"
                 class="btn copy">
+
                 📋 Kopyala
+
             </button>
+
 
             <button
                 id="wordBtn"
                 class="btn word">
+
                 📝 Word Olarak İndir
+
             </button>
+
 
         </div>
 
     </div>
 
+
 </section>
+
 
 <div class="footer">
     Bilgi Notu Oluşturucu
 </div>
+
 
 </main>
 
 
 <script>
 
-/* =====================================================
-   GLOBAL
-===================================================== */
+
+/* ==================================================
+   DEĞİŞKENLER
+================================================== */
 
 let currentMode = "adli";
+
 let recognition = null;
+
 let listening = false;
 
+
 const neighborhoods = [
+
     "Sebenoba",
     "Karaköse",
     "Bezge",
@@ -884,186 +1703,569 @@ const neighborhoods = [
     "Aydınbahçe",
     "Gözlüce",
     "Yayıkdamlar"
+
 ];
 
 
-/* =====================================================
-   SAYFA GEÇİŞ
-===================================================== */
+const STORAGE_KEY =
+    "bilgiNotlari_v2";
+
+
+/* ==================================================
+   ANA SAYFA
+================================================== */
 
 function openApp(mode){
 
     currentMode = mode;
 
-    document.getElementById("home")
+
+    document
+        .getElementById("home")
         .classList.add("hidden");
 
-    document.getElementById("app")
+
+    document
+        .getElementById("app")
         .classList.remove("hidden");
+
 
     if(mode === "ipc"){
 
-        document.getElementById("pageTitle").innerText =
+        document
+            .getElementById("pageTitle")
+            .innerText =
             "₺ İPC Bilgi Notu";
 
-        document.getElementById("ipcPanel")
+
+        document
+            .getElementById("ipcPanel")
             .classList.remove("hidden");
 
-        document.getElementById("adliPanel")
+
+        document
+            .getElementById("adliPanel")
             .classList.add("hidden");
+
 
     }else{
 
-        document.getElementById("pageTitle").innerText =
+
+        document
+            .getElementById("pageTitle")
+            .innerText =
             "⚖️ Adli Olay Bilgi Notu";
 
-        document.getElementById("adliPanel")
+
+        document
+            .getElementById("adliPanel")
             .classList.remove("hidden");
 
-        document.getElementById("ipcPanel")
+
+        document
+            .getElementById("ipcPanel")
             .classList.add("hidden");
 
     }
 
 }
 
+
 function goHome(){
 
     stopRecording();
 
-    document.getElementById("app")
+
+    document
+        .getElementById("app")
         .classList.add("hidden");
 
-    document.getElementById("home")
+
+    document
+        .getElementById("home")
         .classList.remove("hidden");
+
+
+    loadHistory();
 
 }
 
 
-/* =====================================================
+/* ==================================================
+   GEÇMİŞ NOTLAR
+================================================== */
+
+function getHistory(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(STORAGE_KEY)
+        ) || [];
+
+    }catch(e){
+
+        return [];
+
+    }
+
+}
+
+
+function saveHistory(history){
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(history)
+    );
+
+}
+
+
+function addToHistory(note){
+
+    const history =
+        getHistory();
+
+
+    history.unshift(note);
+
+
+    /*
+       Son 100 bilgi notu tutulur.
+       İstersen bunu daha sonra sınırsız da yapabiliriz.
+    */
+
+    if(history.length > 100){
+
+        history.length = 100;
+
+    }
+
+
+    saveHistory(history);
+
+
+    loadHistory();
+
+}
+
+
+function loadHistory(){
+
+    const list =
+        document.getElementById(
+            "historyList"
+        );
+
+    const empty =
+        document.getElementById(
+            "historyEmpty"
+        );
+
+    const count =
+        document.getElementById(
+            "historyCount"
+        );
+
+
+    const history =
+        getHistory();
+
+
+    list.innerHTML = "";
+
+
+    count.innerText =
+        history.length + " kayıt";
+
+
+    if(!history.length){
+
+        empty.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    empty.style.display =
+        "none";
+
+
+    history.forEach((item,index)=>{
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "history-item " +
+            (
+                item.mode === "ipc"
+                ? "ipc-history"
+                : "adli-history"
+            );
+
+
+        div.innerHTML = `
+
+            <div class="history-type">
+                ${
+                    item.mode === "ipc"
+                    ? "🟢 İPC BİLGİ NOTU"
+                    : "🔴 ADLİ OLAY BİLGİ NOTU"
+                }
+            </div>
+
+            <div class="history-topic">
+                ${escapeHtml(item.topic || "Bilgi Notu")}
+            </div>
+
+            <div class="history-date">
+                ${escapeHtml(item.createdAt)}
+            </div>
+
+            <button
+                class="delete-history"
+                title="Sil"
+                onclick="deleteHistory(event,${index})">
+
+                🗑️
+
+            </button>
+        `;
+
+
+        div.addEventListener(
+            "click",
+            function(){
+
+                openHistory(index);
+
+            }
+        );
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+function deleteHistory(event,index){
+
+    event.stopPropagation();
+
+
+    if(
+        !confirm(
+            "Bu bilgi notunu geçmişten silmek istediğine emin misin?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const history =
+        getHistory();
+
+
+    history.splice(
+        index,
+        1
+    );
+
+
+    saveHistory(history);
+
+    loadHistory();
+
+}
+
+
+function openHistory(index){
+
+    const history =
+        getHistory();
+
+
+    const item =
+        history[index];
+
+
+    if(!item) return;
+
+
+    currentMode =
+        item.mode;
+
+
+    document
+        .getElementById("home")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("app")
+        .classList.remove("hidden");
+
+
+    if(item.mode === "ipc"){
+
+        document
+            .getElementById("pageTitle")
+            .innerText =
+            "₺ İPC Bilgi Notu";
+
+
+        document
+            .getElementById("ipcPanel")
+            .classList.remove("hidden");
+
+
+        document
+            .getElementById("adliPanel")
+            .classList.add("hidden");
+
+    }else{
+
+        document
+            .getElementById("pageTitle")
+            .innerText =
+            "⚖️ Adli Olay Bilgi Notu";
+
+
+        document
+            .getElementById("adliPanel")
+            .classList.remove("hidden");
+
+
+        document
+            .getElementById("ipcPanel")
+            .classList.add("hidden");
+
+    }
+
+
+    document
+        .getElementById("result")
+        .value =
+        item.text;
+
+
+    /*
+       Sonucu göstermek için aşağıya otomatik iner.
+    */
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("result")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"center"
+            });
+
+    },100);
+
+}
+
+
+/* ==================================================
    İŞARETLEYİCİ
-===================================================== */
+================================================== */
 
-document.querySelectorAll(".marker")
-.forEach(btn => {
+document
+.querySelectorAll(".marker")
+.forEach(btn=>{
 
-    btn.addEventListener("click",function(){
+    btn.addEventListener(
+        "click",
+        function(){
 
-        this.classList.toggle("active");
+            this.classList.toggle(
+                "active"
+            );
 
-    });
-
-});
-
-
-/* =====================================================
-   İPC SEÇİMİ
-===================================================== */
-
-document.querySelectorAll(".ipc-item")
-.forEach(item => {
-
-    item.addEventListener("click",function(){
-
-        document.querySelectorAll(".ipc-item")
-        .forEach(x => x.classList.remove("active"));
-
-        this.classList.add("active");
-
-    });
+        }
+    );
 
 });
 
 
-/* =====================================================
+/* ==================================================
+   İPC
+================================================== */
+
+document
+.querySelectorAll(".ipc-item")
+.forEach(item=>{
+
+    item.addEventListener(
+        "click",
+        function(){
+
+            document
+            .querySelectorAll(".ipc-item")
+            .forEach(x =>
+                x.classList.remove(
+                    "active"
+                )
+            );
+
+
+            this.classList.add(
+                "active"
+            );
+
+        }
+    );
+
+});
+
+
+/* ==================================================
    SESLİ YAZMA
-===================================================== */
+================================================== */
 
 const voiceBtn =
-    document.getElementById("voiceBtn");
+    document.getElementById(
+        "voiceBtn"
+    );
+
 
 const voiceStatus =
-    document.getElementById("voiceStatus");
+    document.getElementById(
+        "voiceStatus"
+    );
+
 
 const speechText =
-    document.getElementById("speechText");
+    document.getElementById(
+        "speechText"
+    );
+
 
 const SpeechRecognition =
     window.SpeechRecognition ||
     window.webkitSpeechRecognition;
+
 
 if(SpeechRecognition){
 
     recognition =
         new SpeechRecognition();
 
-    recognition.lang = "tr-TR";
 
-    recognition.continuous = true;
+    recognition.lang =
+        "tr-TR";
 
-    recognition.interimResults = true;
 
-    recognition.onstart = function(){
+    recognition.continuous =
+        true;
 
-        listening = true;
 
-        voiceBtn.classList.add("recording");
+    recognition.interimResults =
+        true;
 
-        voiceBtn.innerText =
-            "🔴 Dinleniyor... Durdur";
 
-        voiceStatus.innerText =
-            "Konuşabilirsin. Bitirdiğinde tekrar bas.";
+    recognition.onstart =
+        function(){
 
-    };
+            listening = true;
 
-    recognition.onresult = function(event){
 
-        let finalText = "";
+            voiceBtn
+                .classList
+                .add("recording");
 
-        for(
-            let i = event.resultIndex;
-            i < event.results.length;
-            i++
-        ){
 
-            if(event.results[i].isFinal){
+            voiceBtn.innerText =
+                "🔴 Dinleniyor... Durdur";
 
-                finalText +=
-                    event.results[i][0].transcript + " ";
+
+            voiceStatus.innerText =
+                "Konuşabilirsin. Bitirdiğinde tekrar bas.";
+
+        };
+
+
+    recognition.onresult =
+        function(event){
+
+            let finalText = "";
+
+
+            for(
+                let i =
+                    event.resultIndex;
+
+                i <
+                    event.results.length;
+
+                i++
+            ){
+
+                if(
+                    event
+                    .results[i]
+                    .isFinal
+                ){
+
+                    finalText +=
+                        event
+                        .results[i][0]
+                        .transcript +
+                        " ";
+
+                }
 
             }
 
-        }
 
-        if(finalText){
+            if(finalText){
 
-            speechText.value += finalText;
+                speechText.value +=
+                    finalText;
 
-        }
+            }
 
-    };
+        };
 
-    recognition.onerror = function(event){
 
-        voiceStatus.innerText =
-            "Mikrofon hatası: " + event.error;
+    recognition.onerror =
+        function(event){
 
-        stopRecording();
+            voiceStatus.innerText =
+                "Mikrofon hatası: " +
+                event.error;
 
-    };
 
-    recognition.onend = function(){
+            stopRecording();
 
-        if(listening){
+        };
 
-            try{
-                recognition.start();
-            }catch(e){}
 
-        }
+    recognition.onend =
+        function(){
 
-    };
+            if(listening){
+
+                try{
+
+                    recognition.start();
+
+                }catch(e){}
+
+            }
+
+        };
 
 }else{
 
@@ -1075,49 +2277,63 @@ if(SpeechRecognition){
 }
 
 
-voiceBtn.addEventListener("click",function(){
+voiceBtn.addEventListener(
+    "click",
+    function(){
 
-    if(!recognition){
+        if(!recognition){
 
-        alert(
-            "Bu tarayıcı sesli yazmayı desteklemiyor."
-        );
+            alert(
+                "Bu tarayıcı sesli yazmayı desteklemiyor."
+            );
 
-        return;
+            return;
+
+        }
+
+
+        if(listening){
+
+            stopRecording();
+
+        }else{
+
+            try{
+
+                recognition.start();
+
+            }catch(e){}
+
+        }
 
     }
-
-    if(listening){
-
-        stopRecording();
-
-    }else{
-
-        try{
-            recognition.start();
-        }catch(e){}
-
-    }
-
-});
+);
 
 
 function stopRecording(){
 
     listening = false;
 
-    voiceBtn.classList.remove("recording");
+
+    voiceBtn
+        .classList
+        .remove("recording");
+
 
     voiceBtn.innerText =
         "🎙️ Sesli Anlat";
 
+
     if(recognition){
 
         try{
+
             recognition.stop();
+
         }catch(e){}
 
     }
+
 
     voiceStatus.innerText =
         "Sesli anlatım tamamlandı.";
@@ -1125,13 +2341,14 @@ function stopRecording(){
 }
 
 
-/* =====================================================
+/* ==================================================
    TARİH
-===================================================== */
+================================================== */
 
 function normalizeDate(text){
 
     const months = {
+
         "ocak":"01",
         "şubat":"02",
         "mart":"03",
@@ -1144,11 +2361,15 @@ function normalizeDate(text){
         "ekim":"10",
         "kasım":"11",
         "aralık":"12"
+
     };
 
-    let m = text.match(
-        /(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{4})/
-    );
+
+    let m =
+        text.match(
+            /(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{4})/
+        );
+
 
     if(m){
 
@@ -1162,9 +2383,12 @@ function normalizeDate(text){
 
     }
 
-    m = text.match(
-        /(\d{1,2})\s+(ocak|şubat|mart|nisan|mayıs|haziran|temmuz|ağustos|eylül|ekim|kasım|aralık)\s+(\d{4})/i
-    );
+
+    m =
+        text.match(
+            /(\d{1,2})\s+(ocak|şubat|mart|nisan|mayıs|haziran|temmuz|ağustos|eylül|ekim|kasım|aralık)\s+(\d{4})/i
+        );
+
 
     if(m){
 
@@ -1172,7 +2396,10 @@ function normalizeDate(text){
             m[1].padStart(2,"0") +
             "." +
             months[
-                m[2].toLocaleLowerCase("tr-TR")
+                m[2]
+                .toLocaleLowerCase(
+                    "tr-TR"
+                )
             ] +
             "." +
             m[3]
@@ -1180,20 +2407,23 @@ function normalizeDate(text){
 
     }
 
+
     return null;
 
 }
 
 
-/* =====================================================
+/* ==================================================
    SAAT
-===================================================== */
+================================================== */
 
 function normalizeTime(text){
 
-    let m = text.match(
-        /(?:saat\s*)?(\d{1,2})\s*[:.]\s*(\d{2})/i
-    );
+    let m =
+        text.match(
+            /(?:saat\s*)?(\d{1,2})\s*[:.]\s*(\d{2})/i
+        );
+
 
     if(m){
 
@@ -1205,35 +2435,49 @@ function normalizeTime(text){
 
     }
 
-    m = text.match(
-        /saat\s+(\d{1,2})/i
-    );
+
+    m =
+        text.match(
+            /saat\s+(\d{1,2})/i
+        );
+
 
     if(m){
 
-        return m[1].padStart(2,"0") + ":00";
+        return (
+            m[1].padStart(2,"0") +
+            ":00"
+        );
 
     }
+
 
     return null;
 
 }
 
 
-/* =====================================================
+/* ==================================================
    MAHALLE
-===================================================== */
+================================================== */
 
 function findNeighborhood(text){
 
     const lower =
-        text.toLocaleLowerCase("tr-TR");
+        text.toLocaleLowerCase(
+            "tr-TR"
+        );
 
-    for(const n of neighborhoods){
+
+    for(
+        const n of neighborhoods
+    ){
 
         if(
             lower.includes(
-                n.toLocaleLowerCase("tr-TR")
+                n.toLocaleLowerCase(
+                    "tr-TR"
+                )
             )
         ){
 
@@ -1243,14 +2487,15 @@ function findNeighborhood(text){
 
     }
 
+
     return "";
 
 }
 
 
-/* =====================================================
-   ŞAHISLAR
-===================================================== */
+/* ==================================================
+   ŞAHIS
+================================================== */
 
 function findPeople(text){
 
@@ -1258,47 +2503,58 @@ function findPeople(text){
 
     const seen = new Set();
 
-    /*
-      Örnek:
-      Ramazan KARACA (Yayladağı/2008/Erkek)
-    */
 
-    const p1 =
+    const regex =
         /([A-ZÇĞİÖŞÜa-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜa-zçğıöşü]+)+)\s*\(\s*([^)]*)\)/g;
+
 
     let m;
 
-    while((m = p1.exec(text)) !== null){
 
-        const name = m[1].trim();
+    while(
+        (m = regex.exec(text)) !== null
+    ){
+
+        const name =
+            m[1].trim();
+
 
         if(
             !seen.has(
-                name.toLocaleLowerCase("tr-TR")
+                name.toLocaleLowerCase(
+                    "tr-TR"
+                )
             )
         ){
 
             people.push({
+
                 name:name,
+
                 info:m[2].trim()
+
             });
 
+
             seen.add(
-                name.toLocaleLowerCase("tr-TR")
+                name.toLocaleLowerCase(
+                    "tr-TR"
+                )
             );
 
         }
 
     }
 
+
     return people;
 
 }
 
 
-/* =====================================================
+/* ==================================================
    PLAKA
-===================================================== */
+================================================== */
 
 function findPlate(text){
 
@@ -1307,14 +2563,17 @@ function findPlate(text){
             /\b\d{2}\s?[A-ZÇĞİÖŞÜ]{1,3}\s?\d{2,5}\b/i
         );
 
-    return m ? m[0] : "";
+
+    return m
+        ? m[0]
+        : "";
 
 }
 
 
-/* =====================================================
+/* ==================================================
    HASTANE
-===================================================== */
+================================================== */
 
 function findHospital(text){
 
@@ -1323,35 +2582,49 @@ function findHospital(text){
             /([A-ZÇĞİÖŞÜa-zçğıöşü]+(?:\s+[A-ZÇĞİÖŞÜa-zçğıöşü]+){0,5}\s+Devlet Hastanesine)/i
         );
 
-    return m ? m[1] : "";
+
+    return m
+        ? m[1]
+        : "";
 
 }
 
 
-/* =====================================================
-   İPC
-===================================================== */
+/* ==================================================
+   İPC SEÇİMİ
+================================================== */
 
 function selectedIPC(){
 
     const active =
-        document.querySelector(".ipc-item.active");
+        document.querySelector(
+            ".ipc-item.active"
+        );
 
-    if(!active) return "";
+
+    if(!active){
+
+        return "";
+
+    }
+
 
     return active.dataset.ipc;
 
 }
 
 
-/* =====================================================
-   OTOMATİK TASİNF
-===================================================== */
+/* ==================================================
+   OTOMATİK TASNF
+================================================== */
 
 function autoClassification(text){
 
     const t =
-        text.toLocaleLowerCase("tr-TR");
+        text.toLocaleLowerCase(
+            "tr-TR"
+        );
+
 
     if(
         t.includes("hurdacılık") ||
@@ -1362,15 +2635,16 @@ function autoClassification(text){
 
     }
 
+
     if(
         t.includes("yoklama") ||
-        t.includes("bakaya") ||
-        t.includes("aranan şahıs")
+        t.includes("bakaya")
     ){
 
         return "ASAL Aranan Şahsın Yakalandığı";
 
     }
+
 
     if(
         t.includes("yüksekten düş") ||
@@ -1381,6 +2655,7 @@ function autoClassification(text){
 
     }
 
+
     if(
         t.includes("yasadışı giriş") ||
         t.includes("düzensiz göçmen")
@@ -1390,9 +2665,9 @@ function autoClassification(text){
 
     }
 
+
     if(
         t.includes("evden hırsızlık") ||
-        t.includes("yatağın altında") ||
         t.includes("çalındı")
     ){
 
@@ -1400,8 +2675,8 @@ function autoClassification(text){
 
     }
 
+
     if(
-        t.includes("179") ||
         t.includes("promil") ||
         t.includes("alkollü")
     ){
@@ -1410,39 +2685,16 @@ function autoClassification(text){
 
     }
 
-    if(
-        t.includes("şase numarası") ||
-        t.includes("plakasız") &&
-        t.includes("motosiklet")
-    ){
-
-        return "Resmi Belgeyi Bozmak, Yok Etmek veya Gizlemek";
-
-    }
-
-    if(
-        t.includes("mala zarar") ||
-        t.includes("bahçesine") &&
-        t.includes("tehdit")
-    ){
-
-        return "Hakkı Olmayan Yere Tecavüz -Mala Zarar Verme-Tehdit";
-
-    }
 
     if(
         t.includes("tehdit") &&
-        t.includes("hakaret") &&
-        (
-            t.includes("eşim") ||
-            t.includes("eş") ||
-            t.includes("6284")
-        )
+        t.includes("hakaret")
     ){
 
-        return "Kasten Yaralama, Tehdit ve Hakaret";
+        return "Tehdit ve Hakaret";
 
     }
+
 
     if(
         t.includes("darp") ||
@@ -1453,26 +2705,18 @@ function autoClassification(text){
 
     }
 
-    if(
-        t.includes("tehdit") ||
-        t.includes("hakaret")
-    ){
-
-        return "Tehdit ve Hakaret";
-
-    }
 
     if(
-        t.includes("kaza") ||
         t.includes("motosiklet") ||
         t.includes("motor") ||
         t.includes("gidon") ||
-        t.includes("yaralan")
+        t.includes("kaza")
     ){
 
         return "Taksirle Yaralanma(Jandarma Bölgesi 1 Yaralı)";
 
     }
+
 
     if(
         t.includes("plaka") &&
@@ -1486,14 +2730,15 @@ function autoClassification(text){
 
     }
 
+
     return "Diğer";
 
 }
 
 
-/* =====================================================
-   ŞAHIS GÖSTERİMİ
-===================================================== */
+/* ==================================================
+   KİŞİLERİ FORMATLA
+================================================== */
 
 function formatPeople(people){
 
@@ -1503,38 +2748,45 @@ function formatPeople(people){
 
     }
 
+
     return people
         .map(
-            p => `*${p.name} (${p.info})*`
+            p =>
+            `*${p.name} (${p.info})*`
         )
         .join(" ve ");
 
 }
 
 
-/* =====================================================
+/* ==================================================
    MARKER
-===================================================== */
+================================================== */
 
 function selectedMarkers(){
 
-    return [...document.querySelectorAll(
-        ".marker.active"
-    )].map(
-        x => x.dataset.marker
+    return [
+        ...document
+        .querySelectorAll(
+            ".marker.active"
+        )
+    ].map(
+        x =>
+        x.dataset.marker
     );
 
 }
 
 
-/* =====================================================
-   BİLGİ NOTU OLUŞTUR
-===================================================== */
+/* ==================================================
+   BİLGİ NOTU
+================================================== */
 
 function createNote(){
 
     const text =
         speechText.value.trim();
+
 
     if(!text){
 
@@ -1546,9 +2798,16 @@ function createNote(){
 
     }
 
+
     const neighborhood =
-        document.getElementById("neighborhood").value
-        || findNeighborhood(text);
+        document
+        .getElementById(
+            "neighborhood"
+        )
+        .value
+        ||
+        findNeighborhood(text);
+
 
     if(!neighborhood){
 
@@ -1560,104 +2819,173 @@ function createNote(){
 
     }
 
+
     const date =
-        normalizeDate(text) ||
+        normalizeDate(text)
+        ||
         "................";
 
+
     const time =
-        normalizeTime(text) ||
+        normalizeTime(text)
+        ||
         "........";
+
 
     const people =
         findPeople(text);
 
+
     const markers =
         selectedMarkers();
 
+
     const extra =
-        document.getElementById("extraInfo")
-        .value.trim();
+        document
+        .getElementById(
+            "extraInfo"
+        )
+        .value
+        .trim();
+
 
     let topic = "";
 
     let explanation = "";
+
+
+    /* ============================================
+       İPC
+    ============================================ */
 
     if(currentMode === "ipc"){
 
         const ipc =
             selectedIPC();
 
+
         topic =
             ipc
-            ? `Kabahatler Kanunu Kapsamında ${ipc}`
-            : "İPC Bilgi Notu";
+            ?
+            `Kabahatler Kanunu Kapsamında ${ipc}`
+            :
+            "İPC Bilgi Notu";
+
 
         explanation =
             `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahsın ${ipc || "ilgili kabahat"} kapsamında kurallara aykırı faaliyette bulunduğu tespit edilmiştir.`;
 
-        if(ipc === "Emre Aykırı Davranış"){
+
+        if(
+            ipc ===
+            "Emre Aykırı Davranış"
+        ){
 
             explanation =
-                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen devriye faaliyeti sırasında ${formatPeople(people)} isimli şahsın gerekli kurallara aykırı şekilde faaliyette bulunduğu anlaşılmıştır. 5326 Sayılı Kabahatler Kanununun 32'nci maddesi kapsamında "Emre Aykırı Davranış" nedeniyle idari yaptırım uygulanmıştır.`;
+                `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen devriye faaliyeti sırasında ${formatPeople(people)} isimli şahsın gerekli kurallara aykırı şekilde faaliyette bulunduğu anlaşılmıştır. 5326 Sayılı Kabahatler Kanununun 32'nci maddesi kapsamında "Emre Aykırı Davranış" nedeniyle gerekli idari işlem uygulanmıştır.`;
 
         }
 
-        if(ipc === "İzinsiz Hurdacılık Faaliyeti"){
+
+        if(
+            ipc ===
+            "İzinsiz Hurdacılık Faaliyeti"
+        ){
 
             explanation =
                 `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında icra edilen devriye faaliyeti sırasında ${formatPeople(people)} isimli şahsın izinsiz hurdacılık faaliyeti yaptığı tespit edilmiştir. Şahıs hakkında ilgili mevzuat kapsamında gerekli idari işlem uygulanmıştır.`;
 
         }
 
-        explanation +=
-            extra ? " " + extra : "";
+
+        if(extra){
+
+            explanation +=
+                " " + extra;
+
+        }
+
 
         explanation +=
             "\n\nArz ederim.";
 
-    }else{
+    }
+
+
+    /* ============================================
+       ADLİ
+    ============================================ */
+
+    else{
 
         let selected =
-            document.getElementById("adliType").value;
+            document
+            .getElementById(
+                "adliType"
+            )
+            .value;
+
 
         const type =
-            selected ||
+            selected
+            ||
             autoClassification(text);
+
 
         topic = type;
 
+
         const t =
-            text.toLocaleLowerCase("tr-TR");
+            text.toLocaleLowerCase(
+                "tr-TR"
+            );
 
 
-        /* TAKSİRLE YARALANMA */
+        /* TAKSİR */
 
         if(
-            type.includes("Taksirle Yaralanma")
+            type.includes(
+                "Taksirle Yaralanma"
+            )
         ){
 
             const plate =
                 findPlate(text);
 
+
             const vehicle =
                 t.includes("motosiklet") ||
                 t.includes("motor")
-                ? `${plate ? plate + " plakalı " : ""}motosiklet`
-                : "araç";
+                ?
+                `${plate ? plate + " plakalı " : ""}motosiklet`
+                :
+                "araç";
+
 
             const hospital =
                 findHospital(text);
 
+
             let hospitalText =
                 hospital
-                ? `Meydana gelen kaza neticesinde yaralanan şahıs ambulans ile ${hospital} sevk edilmiş olup,`
-                : "Meydana gelen kaza neticesinde yaralanan şahıs";
+                ?
+                `Meydana gelen kaza neticesinde yaralanan şahıs ambulans ile ${hospital} sevk edilmiş olup,`
+                :
+                "Meydana gelen kaza neticesinde yaralanan şahıs";
+
 
             const danger =
-                t.includes("hayati tehlikesi yok") ||
-                t.includes("hayati tehlikesinin bulunmadığı")
-                ? "hayati tehlikesinin bulunmadığı anlaşılmıştır."
-                : "hayati tehlike durumu belirtilmemiştir.";
+                t.includes(
+                    "hayati tehlikesi yok"
+                ) ||
+                t.includes(
+                    "hayati tehlikesinin bulunmadığı"
+                )
+                ?
+                "hayati tehlikesinin bulunmadığı anlaşılmıştır."
+                :
+                "hayati tehlike durumu belirtilmemiştir.";
+
 
             explanation =
                 `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahsın sevk ve idaresindeki ${vehicle} ile seyir halinde iken gidon hâkimiyetini kaybederek motosikletten düştüğü anlaşılmıştır. ${hospitalText} ${danger}`;
@@ -1665,14 +2993,17 @@ function createNote(){
         }
 
 
-        /* KAYIP PLAKA */
+        /* KAYIP */
 
         else if(
-            type.includes("Kayıp Eşya")
+            type.includes(
+                "Kayıp Eşya"
+            )
         ){
 
             const plate =
                 findPlate(text);
+
 
             explanation =
                 `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahıs, motosikletine ait ${plate ? plate + " nolu " : ""}plakasının kaybolduğunu beyanla müracaatta bulunmuştur. Tahkikata başlanılmıştır.`;
@@ -1680,7 +3011,7 @@ function createNote(){
         }
 
 
-        /* TEHDİT HAKARET */
+        /* TEHDİT */
 
         else if(
             type.includes("Tehdit") ||
@@ -1690,8 +3021,13 @@ function createNote(){
             explanation =
                 `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında ${formatPeople(people)} isimli şahıs, olay nedeniyle tehdit ve hakaret içerikli sözlere maruz kaldığını beyan ederek şikâyetçi olmuştur.`;
 
+
             if(
-                document.getElementById("law6284").checked
+                document
+                .getElementById(
+                    "law6284"
+                )
+                .checked
             ){
 
                 explanation +=
@@ -1699,16 +3035,19 @@ function createNote(){
 
             }
 
+
             explanation +=
                 " Adli tahkikata başlanmıştır.";
 
         }
 
 
-        /* YÜKSEKTEN DÜŞME */
+        /* YÜKSEKTEN */
 
         else if(
-            type.includes("Yüksekten")
+            type.includes(
+                "Yüksekten"
+            )
         ){
 
             explanation =
@@ -1729,7 +3068,7 @@ function createNote(){
         }
 
 
-        /* EV HIRSIZLIK */
+        /* HIRSIZLIK */
 
         else if(
             type === "Evden Hırsızlık"
@@ -1744,13 +3083,16 @@ function createNote(){
         /* ALKOL */
 
         else if(
-            type.includes("Trafik Güvenliğini")
+            type.includes(
+                "Trafik Güvenliğini"
+            )
         ){
 
             const promil =
                 text.match(
                     /\b\d+(?:[.,]\d+)?\s*promil\b/i
                 );
+
 
             explanation =
                 `Yayladağı İlçesi ${neighborhood} Mahallesinde ${date} günü saat ${time} sıralarında Yayladağı İlçe J.K.lığı Trafik ekiplerince icra edilen faaliyette ${formatPeople(people)} isimli şahsın ${promil ? promil[0] : "alkollü"} olarak araç kullandığı tespit edilmiştir. Adli tahkikata başlanılmıştır.`;
@@ -1788,28 +3130,14 @@ function createNote(){
         }
 
 
-        /*
-           6284 konu sonuna eklenir
-        */
+        /* 6284 */
 
         if(
-            document.getElementById("law6284").checked
-        ){
-
-            topic +=
-                " (6284 Sayılı Kanun Kapsamında)";
-
-        }
-
-
-        topic =
-            topic.replace(
-                /\(6284 Sayılı Kanun Kapsamında\)/g,
-                ""
-            ).trim();
-
-        if(
-            document.getElementById("law6284").checked
+            document
+            .getElementById(
+                "law6284"
+            )
+            .checked
         ){
 
             topic +=
@@ -1820,7 +3148,7 @@ function createNote(){
     }
 
 
-    /* MARKER EKLERİ */
+    /* MARKER */
 
     if(markers.length){
 
@@ -1832,7 +3160,9 @@ function createNote(){
     }
 
 
-    /* ÇIKTI */
+    /* ============================================
+       SONUÇ
+    ============================================ */
 
     const output =
 `*BİLGİ NOTU*
@@ -1845,181 +3175,353 @@ ${explanation}
 
 Arz ederim.`;
 
-    resultBox.value =
+
+    document
+        .getElementById(
+            "result"
+        )
+        .value =
         output;
 
+
+    /* ============================================
+       GEÇMİŞE KAYDET
+    ============================================ */
+
+    addToHistory({
+
+        id:
+            Date.now(),
+
+        mode:
+            currentMode,
+
+        topic:
+            topic,
+
+        text:
+            output,
+
+        createdAt:
+            new Date()
+            .toLocaleString(
+                "tr-TR"
+            )
+
+    });
+
 }
 
 
-/* =====================================================
-   OLUŞTUR BUTONU
-===================================================== */
+/* ==================================================
+   OLUŞTUR
+================================================== */
 
-const resultBox =
-    document.getElementById("result");
+document
+.getElementById(
+    "generateBtn"
+)
+.addEventListener(
+    "click",
+    createNote
+);
 
-document.getElementById("generateBtn")
-.addEventListener("click",createNote);
 
-
-/* =====================================================
+/* ==================================================
    KOPYALA
-===================================================== */
+================================================== */
 
-document.getElementById("copyBtn")
-.addEventListener("click",async function(){
+document
+.getElementById(
+    "copyBtn"
+)
+.addEventListener(
+    "click",
+    async function(){
 
-    if(!resultBox.value.trim()){
+        const resultBox =
+            document.getElementById(
+                "result"
+            );
 
-        alert("Önce bilgi notunu oluştur.");
 
-        return;
+        if(
+            !resultBox.value.trim()
+        ){
 
-    }
+            alert(
+                "Önce bilgi notunu oluştur."
+            );
 
-    try{
+            return;
 
-        await navigator.clipboard.writeText(
-            resultBox.value
-        );
+        }
 
-    }catch(e){
 
-        resultBox.select();
-        document.execCommand("copy");
+        try{
 
-    }
+            await navigator.clipboard
+                .writeText(
+                    resultBox.value
+                );
 
-    this.innerText =
-        "✅ Kopyalandı";
+        }catch(e){
 
-    setTimeout(()=>{
+            resultBox.select();
+
+            document.execCommand(
+                "copy"
+            );
+
+        }
+
 
         this.innerText =
-            "📋 Kopyala";
-
-    },1500);
-
-});
+            "✅ Kopyalandı";
 
 
-/* =====================================================
-   WORD
-===================================================== */
+        setTimeout(()=>{
 
-document.getElementById("wordBtn")
-.addEventListener("click",function(){
+            this.innerText =
+                "📋 Kopyala";
 
-    const text =
-        resultBox.value;
-
-    if(!text.trim()){
-
-        alert(
-            "Önce bilgi notunu oluştur."
-        );
-
-        return;
+        },1500);
 
     }
+);
 
-    const html =
-`<html>
+
+/* ==================================================
+   WORD
+================================================== */
+
+document
+.getElementById(
+    "wordBtn"
+)
+.addEventListener(
+    "click",
+    function(){
+
+        const resultBox =
+            document.getElementById(
+                "result"
+            );
+
+
+        const text =
+            resultBox.value;
+
+
+        if(
+            !text.trim()
+        ){
+
+            alert(
+                "Önce bilgi notunu oluştur."
+            );
+
+            return;
+
+        }
+
+
+        const html =
+`
+<html>
 <head>
 <meta charset="UTF-8">
-<style>
-body{
-    font-family:Arial,sans-serif;
-    font-size:12pt;
-}
-pre{
-    white-space:pre-wrap;
-    font-family:Arial,sans-serif;
-}
-</style>
 </head>
-<body>
-<pre>${escapeHtml(text)}</pre>
-</body>
-</html>`;
 
-    const blob =
-        new Blob(
-            ["\ufeff",html],
-            {type:"application/msword"}
+<body>
+
+<pre style="
+font-family:Arial;
+font-size:12pt;
+white-space:pre-wrap;
+">${escapeHtml(text)}</pre>
+
+</body>
+</html>
+`;
+
+
+        const blob =
+            new Blob(
+                [
+                    "\ufeff",
+                    html
+                ],
+                {
+                    type:
+                    "application/msword"
+                }
+            );
+
+
+        const url =
+            URL.createObjectURL(
+                blob
+            );
+
+
+        const link =
+            document.createElement(
+                "a"
+            );
+
+
+        link.href =
+            url;
+
+
+        link.download =
+            "Bilgi_Notu.doc";
+
+
+        document.body.appendChild(
+            link
         );
 
-    const url =
-        URL.createObjectURL(blob);
 
-    const link =
-        document.createElement("a");
+        link.click();
 
-    link.href = url;
 
-    link.download =
-        "Bilgi_Notu.doc";
+        link.remove();
 
-    document.body.appendChild(link);
 
-    link.click();
+        URL.revokeObjectURL(
+            url
+        );
 
-    link.remove();
+    }
+);
 
-    URL.revokeObjectURL(url);
 
-});
+/* ==================================================
+   TEMİZLE
+================================================== */
 
+document
+.getElementById(
+    "clearSpeech"
+)
+.addEventListener(
+    "click",
+    function(){
+
+        speechText.value =
+            "";
+
+        document
+            .getElementById(
+                "result"
+            )
+            .value =
+            "";
+
+        document
+            .getElementById(
+                "extraInfo"
+            )
+            .value =
+            "";
+
+        document
+            .getElementById(
+                "neighborhood"
+            )
+            .value =
+            "";
+
+        document
+            .getElementById(
+                "adliType"
+            )
+            .value =
+            "";
+
+        document
+            .getElementById(
+                "law6284"
+            )
+            .checked =
+            false;
+
+
+        document
+            .querySelectorAll(
+                ".marker"
+            )
+            .forEach(
+                x =>
+                x.classList.remove(
+                    "active"
+                )
+            );
+
+
+        document
+            .querySelectorAll(
+                ".ipc-item"
+            )
+            .forEach(
+                x =>
+                x.classList.remove(
+                    "active"
+                )
+            );
+
+
+        voiceStatus.innerText =
+            "Mikrofon hazır.";
+
+    }
+);
+
+
+/* ==================================================
+   HTML ESCAPE
+================================================== */
 
 function escapeHtml(text){
 
     return text
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
-/* =====================================================
-   TEMİZLE
-===================================================== */
+/* ==================================================
+   SAYFA AÇILDIĞINDA GEÇMİŞİ GETİR
+================================================== */
 
-document.getElementById("clearSpeech")
-.addEventListener("click",function(){
+loadHistory();
 
-    speechText.value = "";
-
-    resultBox.value = "";
-
-    document.getElementById("extraInfo")
-        .value = "";
-
-    document.getElementById("neighborhood")
-        .value = "";
-
-    document.getElementById("adliType")
-        .value = "";
-
-    document.getElementById("law6284")
-        .checked = false;
-
-    document.querySelectorAll(".marker")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-    document.querySelectorAll(".ipc-item")
-        .forEach(x =>
-            x.classList.remove("active")
-        );
-
-    voiceStatus.innerText =
-        "Mikrofon hazır.";
-
-});
 
 </script>
 
